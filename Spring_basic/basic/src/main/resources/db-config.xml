@@ -6,4 +6,12 @@
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	
+	<bean id="db" class="basic.ex02.DataBaseInfo">
+		<property name="url" value="com.spring"/>
+		<property name="uid" value="spring"/>
+		<property name="upw" value="sss123"/>
+	</bean>
+	<bean id="mdao" class="basic.ex02.MemberDAO">
+		<property name="dbInfo" ref="db"/>
+	</bean>
 </beans>
