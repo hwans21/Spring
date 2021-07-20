@@ -5,6 +5,29 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans  
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+	<!-- 스프링 컨테이너 내에 디자인한 객체 클래스를 등록 -->
 	<bean id="test" class="basic.SpringTest" />
-
+	
+	
+	<!-- ex01 -->
+	<!-- Hotel 객체와 의존객체들의 빈 등록 및 의존성 주입 -->
+	<!-- 빈 등록 -->
+	<bean id="chef" class="basic.ex01.Chef" />
+	
+	<bean id="res" class="basic.ex01.Restaurant">
+		<!-- 생성자 -->
+		<!-- ref >> 참조값 -->
+		<constructor-arg ref="chef" /> 
+		<!-- setter -->
+		<property name="chef" ref="chef" /> 
+		<!-- 
+			property name = 'set을 제외한 setter메서드의 이름'
+			setter메서드의 이름은 관례적으로 대부분 set+멤버변수이름이기 때문에
+			변수명이라고 편하게 얘기한 겁니다. 사실은 setter메서드의 이름입니다.
+		 -->
+	</bean>
+	
+	<bean id="hotel" class="basic.ex01.Hotel">
+		<constructor-arg ref="res" />
+	</bean>
 </beans>
