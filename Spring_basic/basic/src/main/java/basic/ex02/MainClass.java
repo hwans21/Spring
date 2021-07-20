@@ -14,6 +14,7 @@ public class MainClass {
 		GenericXmlApplicationContext ct = 
 				new GenericXmlApplicationContext("classpath:db-config.xml");
 		MemberDAO mdao = ct.getBean("mdao", MemberDAO.class);
+		
 		mdao.showDBInfo();
 	}
 }
