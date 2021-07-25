@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<!-- 핸들러 어뎁터, 핸들러 매핑 객체가
+	개발자가 작성한 컨트롤러 등을 찾을 수 있게 설정하는 태그 -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- 정적 자원(html,css,js 등)을 절대 경로로 쉽게 맵핑해주는 태그 -->
+	<!-- mapping에 작성된 경로: 외부로 노출되는 경로, location:실제 파일의 경로 -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- 뷰 리졸버 빈 등록 설정 -->
+	<!-- 
+		- 컨트롤러가 리턴한 view 문자열을 해석하여 경로를 만들어서
+		파일을 찾아 응답하는 ViewResolver의 빈 등록 코드
+		- prefix, suffix필드의 setter주입을 통해
+		컨트롤러에서 리턴된 문자열을 조립해 줍니다.
+		
+	 -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 아노테이션을 사용하여 자동으로 빈 등록을 하게 해 주는 설정 태그 -->
+	<!-- com.spring.basic으로 경로가 시작되는 모든클래스에서,
+	아노테이션으로 지정되어 있는 클래스를 찾아 자동으로 빈 등록을 실행합니다. -->
+	<context:component-scan base-package="com.spring.basic" />
+	
+	
+	
+</beans:beans>
