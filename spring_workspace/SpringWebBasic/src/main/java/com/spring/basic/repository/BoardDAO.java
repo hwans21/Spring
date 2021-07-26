@@ -23,13 +23,13 @@ public class BoardDAO implements IBoardDAO {
 	@Override
 	public List<BoardVO> getArticle() {
 		// TODO Auto-generated method stub
-		return null;
+		return articles;
 	}
 
 	@Override
 	public BoardVO getArticle(int bId) {
 		// TODO Auto-generated method stub
-		return null;
+		return articles.get(bId);
 	}
 
 	@Override
