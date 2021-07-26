@@ -46,6 +46,22 @@ public String getStuName() {
 		this.math = math;
 	}
 
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	public double getAverage() {
+		return average;
+	}
+
+	public void setAverage(double average) {
+		this.average = average;
+	}
+
 	//	총점, 평균을 구하는 메서드
 	public void calcData() {
 		this.total = this.kor+this.eng+this.math;
