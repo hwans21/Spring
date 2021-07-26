@@ -69,26 +69,36 @@ public class ScoreController {
 		System.out.println("/score/search: GET");
 	}
 	
+//	@GetMapping("/selectOne")
+//	public String search(@RequestParam("stuNum") int num,
+//			RedirectAttributes ra,
+//			Model model) {
+//		ScoreVO vo = service.selectOne(num-1);
+//		if(vo == null) {
+//			ra.addFlashAttribute("msg", "학번정보가 없습니다.");
+//			return "redirect:/score/search";
+//		} else {
+//			model.addAttribute("stu", vo);
+//			return "/score/search-result";
+//		}
+//	}
+//	
+	//점수 개별 조회 처리 요청 메서드(강사님코드)
 	@GetMapping("/selectOne")
-	public String search(@RequestParam("stuNum") int num,
-			RedirectAttributes ra,
-			Model model) {
-		ScoreVO vo = service.selectOne(num-1);
-		if(vo == null) {
-			ra.addFlashAttribute("msg", "학번정보가 없습니다.");
+	public String selectOne(@RequestParam("stuNum") int stuNum
+			, RedirectAttributes ra, Model model) {
+		
+		List<ScoreVO> list = service.selectAllScores();
+		
+		if(stuNum > list.size()) {
+			ra.addFlashAttribute("msg", "학번 정보가 없습니다.");
 			return "redirect:/score/search";
 		} else {
-			model.addAttribute("stu", vo);
-			return "/score/search-result";
+			model.addAttribute("stu", service.selectOne(stuNum));
+			return "score/search-result";
 		}
+		
 	}
-//	
-//	@GetMapping("/selectOne")
-//	public String selectOne(int stuNum) {
-//		List<ScoreVO> list = service.selectAllScores();
-//		if(stuNum)
-//	}
-//	이따가 다시 볼 것
 	
 	
 	
