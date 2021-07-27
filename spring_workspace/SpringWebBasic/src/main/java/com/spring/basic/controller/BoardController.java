@@ -65,6 +65,7 @@ public class BoardController {
 		model.addAttribute("content", service.getArticle(bId));
 	}
 	
+	
 	//modify.jsp를 생성해서 form 태그에 사용자가 처음에 작성했던 내용이 드러나도록
 	//배치해 주시고 수정을 받아주세요
 	//수정 처리하는 메서드: modify(), 요청url: /modify -> POST
@@ -75,11 +76,11 @@ public class BoardController {
 		model.addAttribute("content", service.getArticle(bId));
 	}
 	
-	@PostMapping("/modify")
+	@PostMapping("/modify")//여기 질문!!
 	public String modify(@ModelAttribute("bId") int bId,BoardVO vo) {
 		System.out.println("/board/modify?bId="+bId+":POST");
 		service.updateArticle(vo, bId);
-		return "redirect:/board/content";
+		return "redirect:/board/content?bId="+bId;
 	}
 	
 	//삭제는 알아서 작성해 주세요 (테이블의 [삭제]에 링크를 달아서 요청 넣을 수 있도록)
