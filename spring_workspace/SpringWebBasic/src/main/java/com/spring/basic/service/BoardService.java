@@ -29,19 +29,19 @@ public class BoardService implements IBoardService {
 	@Override
 	public BoardVO getArticle(int bId) {
 		// TODO Auto-generated method stub
-		return dao.getArticle(bId);
+		return dao.getArticle(bId-1);
 	}
 
 	@Override
 	public void deleteArticle(int bId) {
 		// TODO Auto-generated method stub
-
+		dao.deleteArticle(bId-1);
 	}
 
 	@Override
 	public void updateArticle(BoardVO vo, int bId) {
 		// TODO Auto-generated method stub
-
+		dao.updateArticle(vo, bId-1);
 	}
 
 }
