@@ -12,22 +12,25 @@
 	<table border="1">
 		<thead>
 			<th>글번호</th>
-			<th>작성자</th>
 			<th>제목</th>
+			<th>작성자</th>
+			<th>비고</th>
 		</thead>
 		<tbody>
 			<c:forEach var="art" items="${articles }" varStatus="artNum">
 				<tr>
 					<td>${artNum.index+1 }</td>
-					<td>${art.writer }</td>
 					<td>
 						<a href="<c:url value='/board/content?bId=${artNum.index+1 }'/>">${art.title }</a>
 					</td>
+					<td>${art.writer }</td>
+					<td><a href="<c:url value='/board/delete?bId=${artNum.index+1 }' />">[삭제]</a></td>
 				</tr>
 
 			</c:forEach>
 
 		</tbody>
 	</table>
+	<a href="<c:url value='/board/write'/>">게시물 작성하기</a>
 </body>
 </html>

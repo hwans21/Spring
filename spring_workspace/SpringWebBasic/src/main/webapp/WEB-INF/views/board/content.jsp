@@ -10,13 +10,16 @@
 </head>
 
 <body>
-    <h2>콘텐츠 페이지 입니다.</h2>
+    <h2>${bId}번 게시물 내용</h2>
 
     <p>
-        # 작성자 : <input type="text" name="writer" readonly value="${content.writer }"><br>
-        # 제목 : <input type="text" name="title" readonly value="${content.title }"> <br>
+        # 작성자 : ${content.writer }<br>
+        # 제목 : ${content.title } <br>
         # 내용 : <textarea rows="3" name="content"readonly>${content.content }</textarea> <br>
     </p>
+    <a href="<c:url value='/board/list' />">글 목록으로</a>
+    <a href="<c:url value='/board/modify?bId=${bId}' />">글 수정하기</a>
+    <!-- 글 수정하기 화면으로 이동 요청 -->
 </body>
 
 </html>

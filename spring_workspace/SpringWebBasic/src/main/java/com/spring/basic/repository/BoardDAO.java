@@ -35,13 +35,13 @@ public class BoardDAO implements IBoardDAO {
 	@Override
 	public void deleteArticle(int bId) {
 		// TODO Auto-generated method stub
-
+		articles.remove(bId);
 	}
 
 	@Override
 	public void updateArticle(BoardVO vo, int bId) {
 		// TODO Auto-generated method stub
-
+		articles.set(bId, vo);
 	}
 
 }
