@@ -77,7 +77,7 @@ public class BoardController {
 	}
 	
 	@PostMapping("/modify")//여기 질문!!
-	public String modify(@ModelAttribute("bId") int bId,BoardVO vo) {
+	public String modify(@RequestParam("bId") int bId,BoardVO vo) {
 		System.out.println("/board/modify?bId="+bId+":POST");
 		service.updateArticle(vo, bId);
 		return "redirect:/board/content?bId="+bId;
