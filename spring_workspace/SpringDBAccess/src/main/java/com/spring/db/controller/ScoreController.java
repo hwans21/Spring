@@ -1,7 +1,5 @@
 package com.spring.db.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,7 +56,7 @@ public class ScoreController {
 		// list요청이 다시 들어가서 list.jsp로 갔을 때, 삭제 이후에 간 것이 판단된다면
 		// 브라우저에 '삭제가 완료되었습니다..' 문구를 빨간색으로 띄워보세요
 		// (RedirectAttributes 사용, 경고창으로 띄워도 좋아요.)
-		service.deleteScore(num-1);
+		service.deleteScore(num);
 		ra.addFlashAttribute("msg","delSuccess");
 		return "redirect:/score/list";
 	}
@@ -88,15 +86,17 @@ public class ScoreController {
 	public String selectOne(@RequestParam("stuNum") int stuNum
 			, RedirectAttributes ra, Model model) {
 		
-		List<ScoreVO> list = service.selectAllScores();
+		System.out.println("/score/selectOne:GET");
+		ScoreVO vo = service.selectOne(stuNum);
+		System.out.println(vo);
 		
-		if(stuNum > list.size()) {
-			ra.addFlashAttribute("msg", "학번 정보가 없습니다.");
+		if(vo == null) {
+			ra.addFlashAttribute("msg", "검색 결과가 없습니다.");
 			return "redirect:/score/search";
-		} else {
-			model.addAttribute("stu", service.selectOne(stuNum));
-			return "score/search-result";
 		}
+		model.addAttribute("stu", vo);
+		return "score/search-result";
+		
 		
 	}
 	

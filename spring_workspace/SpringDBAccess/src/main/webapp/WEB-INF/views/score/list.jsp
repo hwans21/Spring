@@ -16,9 +16,9 @@
 	 -->
 	<c:forEach var="stu" items="${sList }" varStatus="stuNum">
 		<p>
-			학번: ${stuNum.index+1 }, 이름:${stu.stuName }, 국어: ${stu.kor },영어: ${stu.eng }, 
+			학번: ${stu.stuId}, 이름:${stu.stuName }, 국어: ${stu.kor },영어: ${stu.eng }, 
 			수학: ${stu.math }, 총점: ${stu.total}, 평균: ${stu.average }
-			<a href="<c:url value='/score/delete?stuNum=${stuNum.index+1 }' />">[삭제]</a>
+			<a href="<c:url value='/score/delete?stuNum=${stu.stuId }' />">[삭제]</a>
 		</p>
 	
 	</c:forEach>

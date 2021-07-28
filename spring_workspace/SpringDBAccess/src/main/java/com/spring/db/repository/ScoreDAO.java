@@ -1,23 +1,39 @@
 package com.spring.db.repository;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.spring.db.commons.ScoreMapper;
 import com.spring.db.model.ScoreVO;
 
 @Repository
 public class ScoreDAO implements IScoreDAO {
 
+	// 내부(중첩) 클래스 (inner class)
+	// 두 클래스가 굉장히 긴밀한 관계가 있을 때 주로 선언.
+	// 해당 클래스 안에서만 사용할 클래스를 굳이 새 파일을 만들지 않고도 선언이 가능.
+	class ScoreMapper implements RowMapper<ScoreVO> {
+
+		@Override
+		public ScoreVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+			ScoreVO vo = new ScoreVO();
+			vo.setStuId(rs.getInt("stu_id"));
+			vo.setStuName(rs.getString("stu_name"));
+			vo.setKor(rs.getInt("kor"));
+			vo.setEng(rs.getInt("eng"));
+			vo.setMath(rs.getInt("math"));
+			vo.setTotal(rs.getInt("total"));
+			vo.setAverage(rs.getDouble("average"));
+			return vo;
+		}
+		
+	}
+	
 	/*
 	 * 전통적인 jsp jdbc처리
 	 * 
@@ -105,19 +121,37 @@ public class ScoreDAO implements IScoreDAO {
 	public List<ScoreVO> selectAllScores() {
 		// TODO Auto-generated method stub
 		String sql = "SELECT * FROM scores ORDER BY stu_id ASC";
-		return template.query(sql,new ScoreMapper());
+//		return template.query(sql,new ScoreMapper());
+		return template.query(sql,(rs, rowNum) -> {
+			ScoreVO vo = new ScoreVO();
+			vo.setStuId(rs.getInt("stu_id"));
+			vo.setStuName(rs.getString("stu_name"));
+			vo.setKor(rs.getInt("kor"));
+			vo.setEng(rs.getInt("eng"));
+			vo.setMath(rs.getInt("math"));
+			vo.setTotal(rs.getInt("total"));
+			vo.setAverage(rs.getDouble("average"));
+			return vo;
+		});
 		
 	}
 	@Override
 	public void deleteScore(int num) {
 		// TODO Auto-generated method stub
-
+		String sql = "DELETE FROM scores where stu_id=? ";
+		template.update(sql,num);
 	}
 
 	@Override
 	public ScoreVO selectOne(int num) {
 		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT * FROM scores WHERE stu_id=?";
+		try {
+			return template.queryForObject(sql, new ScoreMapper(), num);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return null;
+		}
 	}
 
 }
