@@ -2,6 +2,9 @@ package com.spring.mvc.board.model;
 
 import java.sql.Timestamp;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /*
  -- 게시판 테이블 생성
 CREATE TABLE mvc_board(
@@ -28,14 +31,16 @@ CREATE SEQUENCE board_seq
     그리고 실행 (안될시 java -jar lombok.jar)-> (못찾을 시) Specify location 클릭후 sts.exe 클릭
     
  */
-
+@Getter
+@Setter
 public class BoardVO {
-	private int boardNo;
+	private int boardNum;
 	private String title;
 	private String content;
 	private String writer;
 	private Timestamp regDate;
 	private int viewCnt;
+	
 	
 	
 }
