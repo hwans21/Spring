@@ -7,19 +7,24 @@ import org.springframework.stereotype.Service;
 
 import com.spring.db.model.ScoreVO;
 import com.spring.db.repository.IScoreDAO;
+import com.spring.db.repository.IScoreMapper;
 
 
 @Service
 public class ScoreService implements IScoreService {
-
+	// JDBC Template을 이용한 SQL 처리
+//	@Autowired
+//	private IScoreDAO dao;
+	
+	//MyBatis를 이용한 SQL 처리
 	@Autowired
-	private IScoreDAO dao;
+	private IScoreMapper mapper;
 	
 	@Override
 	public void insertScore(ScoreVO score) {
 		// TODO Auto-generated method stub
 		score.calcData();
-		dao.insertScore(score);
+		mapper.insertScore(score);
 	}
 
 	@Override
@@ -27,20 +32,20 @@ public class ScoreService implements IScoreService {
 		// TODO Auto-generated method stub
 //		List<ScoreVO> list = dao.selectAllScores();
 //		return list;
-		return dao.selectAllScores();
+		return mapper.selectAllScores();
 	}
 
 	@Override
 	public void deleteScore(int num) {
 		// TODO Auto-generated method stub
-		dao.deleteScore(num);
+		mapper.deleteScore(num);
 	}
 
 	@Override
 	public ScoreVO selectOne(int num) {
 		// TODO Auto-generated method stub
 		
-		return dao.selectOne(num);
+		return mapper.selectOne(num);
 		
 	}
 

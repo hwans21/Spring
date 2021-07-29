@@ -62,7 +62,7 @@ public class BoardController {
 //	}
 	public void content(@RequestParam("bId") int bId, Model model) {
 		System.out.println("/board/content?bId="+bId+":GET");
-		model.addAttribute("content", service.getArticle(bId));
+		model.addAttribute("content", service.getArticleOne(bId));
 	}
 	
 	
@@ -73,7 +73,7 @@ public class BoardController {
 	@GetMapping("/modify")
 	public void modify(@RequestParam("bId") int bId, Model model) {
 		System.out.println("/board/modify?bId="+bId+":GET");
-		model.addAttribute("content", service.getArticle(bId));
+		model.addAttribute("content", service.getArticleOne(bId));
 	}
 	
 	@PostMapping("/modify")//여기 질문!!

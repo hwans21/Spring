@@ -12,7 +12,7 @@ public interface IBoardService {
 	List<BoardVO> getArticle();
 	
 	// 게시글 상세보기
-	BoardVO getArticle(int bId);
+	BoardVO getArticleOne(int bId);
 	
 	// 게시글 삭제
 	void deleteArticle(int bId);
