@@ -2,8 +2,11 @@ package com.spring.mvc.board.model;
 
 import java.sql.Timestamp;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /*
  -- 게시판 테이블 생성
@@ -33,6 +36,9 @@ CREATE SEQUENCE board_seq
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class BoardVO {
 	private int boardNum;
 	private String title;
