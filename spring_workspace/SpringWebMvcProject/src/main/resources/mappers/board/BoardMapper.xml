@@ -23,4 +23,19 @@
 	<select id="getArticleList" resultMap="BoardMap">
 		SELECT * FROM mvc_board ORDER BY board_no ASC
 	</select>
+	<select id="getArticle" resultMap="BoardMap">
+		SELECT * FROM mvc_board
+		WHERE board_no = #{boardNum}
+	</select>
+	
+	<update id="update">
+		UPDATE mvc_board SET title = #{title}, content=#{content}
+		WHERE board_no = #{boardNum}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM mvc_board WHERE board_no = #{boardNum}
+	</delete>
+	
+	
 </mapper>
