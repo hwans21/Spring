@@ -1,5 +1,7 @@
 package com.spring.mvc.board;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,15 @@ public class BoardMapperTest {
 			article.setWriter("김테스트"+i);
 			article.setContent("테스트 중이니까 조용히 하세요!" + i);
 			mapper.insert(article);
+		}
+	}
+	
+	// 게시글 목록 전체 조회 테스트
+	@Test
+	public void getListTest() {
+		List<BoardVO> list = mapper.getArticleList();
+		for(BoardVO vo : list) {
+			System.out.println(vo);
 		}
 	}
 	
