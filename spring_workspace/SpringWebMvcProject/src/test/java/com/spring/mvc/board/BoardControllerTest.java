@@ -69,4 +69,19 @@ public class BoardControllerTest {
 		log.info(viewPage);
 	}
 	
+	// 게시글 상세보기 요청 넣어보기
+	// 컨트롤러에서는 DB에서 가지고 온 글 객체를 model에 담아서 jsp로 이동시킬 것입니다.
+	//42번글을 보여달라는 요청을 넣으시고, 요청 결과가 들어있는 model을 출력해 보세요
+	
+	
+	@Test
+	public void testContent() throws Exception {
+		log.info(
+				mockMvc.perform(MockMvcRequestBuilders.get("/board/content?boardNo=42"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap()
+				);
+		
+	}
 }

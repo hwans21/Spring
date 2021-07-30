@@ -30,7 +30,7 @@ public class BoardService implements IBoardService {
 	@Override
 	public BoardVO getArticle(int boardNo) {
 		// TODO Auto-generated method stub
-		return null;
+		return mapper.getArticle(boardNo);
 	}
 
 	@Override
