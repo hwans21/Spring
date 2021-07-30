@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.spring.mvc.board.model.BoardVO;
 import com.spring.mvc.board.service.IBoardService;
 
 @Controller
@@ -20,5 +22,13 @@ public class BoardController {
 		System.out.println("/board/list: GET");
 		model.addAttribute("articles", service.getArticleList());
 		return "board/list";
+	}
+	
+	// 게시글 DB 등록 요청
+	@PostMapping("/write")
+	public String write(BoardVO article) {
+		System.out.println("/board/write: POST");
+		service.insert(article);
+		return "redirect:/board/list";
 	}
 }

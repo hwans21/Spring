@@ -58,4 +58,15 @@ public class BoardControllerTest {
 				);
 	}
 	
+	@Test
+	public void testInsert() throws Exception {
+		String viewPage = mockMvc.perform(MockMvcRequestBuilders.post("/board/write")
+				.param("title", "테스트 새 글 제목")
+				.param("content","테스트 새 글 내용")
+				.param("writer","user00")
+				).andReturn().getModelAndView().getViewName();
+		
+		log.info(viewPage);
+	}
+	
 }

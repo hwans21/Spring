@@ -17,7 +17,7 @@ public class BoardService implements IBoardService {
 	@Override
 	public void insert(BoardVO article) {
 		// TODO Auto-generated method stub
-		
+		mapper.insert(article);
 	}
 
 	@Override
