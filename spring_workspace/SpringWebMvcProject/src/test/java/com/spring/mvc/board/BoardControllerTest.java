@@ -12,8 +12,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.spring.mvc.board.controller.BoardController;
-
 import lombok.extern.log4j.Log4j;
 
 @RunWith(SpringJUnit4ClassRunner.class) // 단위테스트하기위한 선언
@@ -86,4 +84,37 @@ public class BoardControllerTest {
 				);
 		
 	}
+	
+	
+	//5번 게시글 수정(제목과 내용 수정)
+	// 전송방식은 post방식입니다.
+	// 수정 후 이동하는 페이지는 해당 글의 상세보기 페이지 입니다.
+	// 컨트롤러가 리턴하는 viewName을 출력해 주세요
+	@Test
+	public void testModify() throws Exception {
+		String viewName = mockMvc.perform(MockMvcRequestBuilders.post("/board/modify")
+				.param("boardNum", "5")
+				.param("title", "제목 수정 test")
+				.param("content", "내용 수정 test")
+				)
+			.andReturn()
+			.getModelAndView()
+			.getViewName();
+		log.info(viewName);
+	}
+	
+	//42번글을 삭제하세요
+	// 전송방식은 post방식이고, 이동하는 곳은 목록 요청이 재요청될 것입니다.
+	// viewName을 출력해 주세요.
+	@Test
+	public void testRemove() throws Exception {
+		String viewName = mockMvc.perform(MockMvcRequestBuilders.post("/board/delete")
+					.param("boardNum", "42")
+					)
+				.andReturn()
+				.getModelAndView()
+				.getViewName();
+		log.info(viewName);
+	}
+	
 }

@@ -36,13 +36,13 @@ public class BoardService implements IBoardService {
 	@Override
 	public void update(BoardVO article) {
 		// TODO Auto-generated method stub
-
+		mapper.update(article);
 	}
 
 	@Override
 	public void delete(int boardNo) {
 		// TODO Auto-generated method stub
-
+		mapper.delete(boardNo);
 	}
 
 }

@@ -40,4 +40,21 @@ public class BoardController {
 		model.addAttribute("article", service.getArticle(boardNo));
 		return "";
 	}
+	
+	//게시글 수정 처리요청
+	@PostMapping("/modify")
+	public String modify(BoardVO article) {
+		System.out.println("/board/modify: POST");
+		System.out.println("요청된 글 번호: "+article.getBoardNum());
+		service.update(article);
+		return "redirect:/board/content?boardNo="+article.getBoardNum();
+	}
+	
+	@PostMapping("/delete")
+	public String delete(/* @RequestParam("boardNum") int boardNo */ int boardNum) {
+		System.out.println("/board/delete: POST");
+		System.out.println("요청된 글 번호: "+ boardNum);
+		service.delete(boardNum);
+		return "redirect:/board/list";
+	}
 }
