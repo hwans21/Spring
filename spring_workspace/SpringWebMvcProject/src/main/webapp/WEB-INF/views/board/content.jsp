@@ -19,17 +19,17 @@ header.masthead {
         
           <div class="form-group">
             <label>작성자</label>
-            <input type="text" class="form-control" name='writer' value="#" readonly>
+            <input type="text" class="form-control" name='writer' value="${article.writer }" readonly>
           </div>
           
           <div class="form-group">
             <label>제목</label>
-            <input type="text" class="form-control" name='title' value="#" readonly>
+            <input type="text" class="form-control" name='title' value="${article.title }" readonly>
           </div>
 
           <div class="form-group">
             <label>내용</label>
-            <textarea class="form-control" rows="5" name='content' readonly>###</textarea>
+            <textarea class="form-control" rows="5" name='content' readonly>${article.content }</textarea>
           </div>
 
         <form role="form" action="#" method="post">

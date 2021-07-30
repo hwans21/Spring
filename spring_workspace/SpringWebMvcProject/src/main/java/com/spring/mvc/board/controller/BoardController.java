@@ -44,7 +44,7 @@ public class BoardController {
 	public String content(@RequestParam("boardNo") int boardNo, Model model) {
 		System.out.println("/board/content?="+boardNo+": GET");
 		model.addAttribute("article", service.getArticle(boardNo));
-		return "";
+		return "/board/content";
 	}
 	
 	//게시글 수정 처리요청
