@@ -21,7 +21,7 @@
 		VALUES(board_seq.NEXTVAL,#{title},#{content},#{writer})
 	</insert>
 	<select id="getArticleList" resultMap="BoardMap">
-		SELECT * FROM mvc_board ORDER BY board_no ASC
+		SELECT * FROM mvc_board ORDER BY board_no DESC
 	</select>
 	<select id="getArticle" resultMap="BoardMap">
 		SELECT * FROM mvc_board

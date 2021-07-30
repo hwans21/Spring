@@ -16,7 +16,7 @@ header.masthead {
       <div class="card-header text-white" style="background-color: #643691;"> 게시글 등록</div>
       <div class="card-body">
 
-        <form role="form" action="#" method="post">
+        <form role="form" method="post"> <!-- 현재 경로와 action경로가 같기 때문에 action 생략 가능 -->
         
           <div class="form-group">
             <label>작성자</label>

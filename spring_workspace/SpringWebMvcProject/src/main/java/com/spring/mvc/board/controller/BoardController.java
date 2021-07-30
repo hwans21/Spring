@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.mvc.board.model.BoardVO;
 import com.spring.mvc.board.service.IBoardService;
@@ -24,12 +25,17 @@ public class BoardController {
 		model.addAttribute("articles", service.getArticleList());
 		return "board/list";
 	}
+	@GetMapping("/write")
+	public void write() {
+		System.out.println("/board/write: GET");
+	}
 	
 	// 게시글 DB 등록 요청
 	@PostMapping("/write")
-	public String write(BoardVO article) {
+	public String write(BoardVO article, RedirectAttributes ra) {
 		System.out.println("/board/write: POST");
 		service.insert(article);
+		ra.addFlashAttribute("msg","regSuccess");
 		return "redirect:/board/list";
 	}
 	
