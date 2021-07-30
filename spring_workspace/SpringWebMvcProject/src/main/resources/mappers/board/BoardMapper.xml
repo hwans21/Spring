@@ -4,5 +4,9 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.spring.mvc.board.repository.IBoardMapper">
-	
+	<insert id="insert">
+		INSERT INTO mvc_board
+		(board_no,title,content,writer)
+		VALUES(board_seq.NEXTVAL,#{title},#{content},#{writer})
+	</insert>
 </mapper>
