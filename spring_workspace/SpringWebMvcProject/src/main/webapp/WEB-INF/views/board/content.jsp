@@ -13,7 +13,7 @@ header.masthead {
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
-      <div class="card-header text-white" style="background-color: #643691;">??번 게시물 내용</div>
+      <div class="card-header text-white" style="background-color: #643691;">${article.boardNum }번 게시물 내용</div>
       <div class="card-body">
 
         
