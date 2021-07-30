@@ -49,18 +49,22 @@ header.masthead {
 						</thead>
 
 						<!-- 게시물이 들어갈 공간 -->
+						<c:forEach var="art" items="${articles }">
+						
 							<tr style="color: #643691;">
-								<td>글번호</td>
-								<td>이름</td>
+								<td>${art.boardNum }</td>
+								<td>${art.writer }</td>
 
 								<td><a style="margin-top: 0; height: 40px; color: orange;" href="#">
-										제목
+										${art.title }
 									</a>
 								</td>
 
-								<td>날짜</td>
-								<td>조회수</td>
+								<td>${art.regDate }</td>
+								<td>${art.viewCnt }</td>
 							</tr>
+						
+						</c:forEach>
 						
 					</table>
 					

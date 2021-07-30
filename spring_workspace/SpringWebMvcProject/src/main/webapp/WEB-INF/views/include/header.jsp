@@ -81,7 +81,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/">HOME</a>
+            <a class="nav-link js-scroll-trigger" href="#">HOME</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="<c:url value='/introduce'/>">INTRODUCE</a>
@@ -125,7 +125,7 @@
 		    </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#">BOARD</a>
+            <a class="nav-link js-scroll-trigger" href="<c:url value='/board/list' />">BOARD</a>
           </li>
           
           <li class="nav-item">
