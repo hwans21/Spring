@@ -77,7 +77,9 @@ public class BoardControllerTest {
 	@Test
 	public void testContent() throws Exception {
 		log.info(
-				mockMvc.perform(MockMvcRequestBuilders.get("/board/content?boardNo=42"))
+				mockMvc.perform(MockMvcRequestBuilders.get("/board/content")
+						.param("boardNo", "42")
+				)
 				.andReturn()
 				.getModelAndView()
 				.getModelMap()
