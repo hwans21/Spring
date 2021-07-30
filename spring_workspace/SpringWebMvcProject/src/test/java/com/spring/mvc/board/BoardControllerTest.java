@@ -12,10 +12,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.spring.mvc.board.controller.BoardController;
+
 import lombok.extern.log4j.Log4j;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@WebAppConfiguration
+@RunWith(SpringJUnit4ClassRunner.class) // 단위테스트하기위한 선언
+@WebAppConfiguration //WebApplicationContext선언하기 위해서
 @ContextConfiguration({ "file:src/main/webapp/WEB-INF/spring/mvc-config.xml",
 						"file:src/main/webapp/WEB-INF/spring/servlet-config.xml" })
 @Log4j
@@ -28,6 +30,9 @@ public class BoardControllerTest {
 	@Autowired
 	private WebApplicationContext ctx;
 	
+//	@Autowired
+//	private BoardController controller;
+	
 	//mock:모방, 가상의
 	// 요청과 응답을 넣을 수 있게 가상의 mvc환경을 구성할 수 있도록 함
 	//MockMvc는 웹 어플리케이션을 서버에 배포하지 않아도 스프링 MVC 동작을
@@ -37,7 +42,10 @@ public class BoardControllerTest {
 	@Before
 	public void setUp() {
 		// 가상 구조를 세팅
-		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
+		// 스프링 컨테이너에 등록된 모든 빈과 의존성 주입까지 로드해서 사용가능
+		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build(); 
+		// 테스트할 컨트롤러를 수동으로 주입. 하나의 컨트롤러만 테스트를 진행할 때 사용.
+		//this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 	}
 	
 	@Test
