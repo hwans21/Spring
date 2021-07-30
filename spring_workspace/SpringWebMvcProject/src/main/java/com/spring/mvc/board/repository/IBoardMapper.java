@@ -9,6 +9,7 @@ public interface IBoardMapper {
 	
 	//게시글 등록 기능
 	void insert(BoardVO article);
+	
 	//게시글 전체 목록 조회 기능
 	List<BoardVO> getArticleList();
 	
