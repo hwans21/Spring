@@ -34,7 +34,7 @@ header.masthead {
 
         <form role="form" action="#" method="post">
          
-	          <input class="btn" type="button" value="목록"
+	          <input class="btn" type="button" value="목록" 
 			style="background-color: #643691; margin-top: 0; height: 40px; color: white; border: 0px solid #388E3C; opacity: 0.8">&nbsp;&nbsp;
 	          <input class="btn" type="button" value="수정"
 			style="background-color: orange; margin-top: 0; height: 40px; color: white; border: 0px solid #388E3C; opacity: 0.8">&nbsp;&nbsp;
