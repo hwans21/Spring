@@ -59,7 +59,7 @@ header.masthead {
 							<td>${art.writer }</td>
 
 							<td><a style="margin-top: 0; height: 40px; color: orange;"
-								href="<c:url value='/board/content?boardNo=${art.boardNum }' />"> ${art.title } </a></td>
+								href="<c:url value='/board/content/${art.boardNum }' />"> ${art.title } </a></td>
 
 							<td>${art.regDate }</td>
 							<td>${art.viewCnt }</td>
