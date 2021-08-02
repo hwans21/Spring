@@ -41,10 +41,16 @@ public class BoardController {
 	}
 	
 	//게시글 상세보기 요청
+//	@GetMapping("/content/{boardNum}/{merong}")
+//	public String content(@PathVariable("boardNum") int boardNum,@PathVariable("merong") int merong, Model model) {
 	@GetMapping("/content/{boardNum}")
+	
+	//@PathVariable은 URL경로에 변수를 포함시켜 주는 방식
+	//null이나 공백이 들어갈 수 있는 파라미터값이라면 적용하지 않는 것을 추천
+	//파라미터값에 .이 포함되어 있으면, .뒤의 값은 잘립니다.
+	//{} 안에 변수명을 지어주시고, @PathVariable 괄호 안에 영역을 지목해서 값을 받아옵니다.
 //	public String content(@PathVariable("boardNum") int boardNum, Model model) {
 	public String content(@PathVariable int boardNum, Model model) {
-	
 		System.out.println("/board/content?="+boardNum+": GET");
 		model.addAttribute("article", service.getArticle(boardNum));
 		return "/board/content";
