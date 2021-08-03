@@ -72,20 +72,23 @@ header.masthead {
 				<!-- 페이징 처리 부분  -->
 				<ul class="pagination justify-content-center">
 					<!-- 이전 버튼 -->
-					<li class="page-item prev"><a class="page-link" href="#"
-						style="background-color: #643691; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">이전</a>
-					</li>
+					<c:if test="${pc.prev }">
+						<li class="page-item"><a class="page-link" href="<c:url value='/board/list?page=${pc.beginPage-1 }' />"
+							style="background-color: #643691; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">이전</a>
+						</li>
+					</c:if>
 					<!-- 페이지 번호 버튼 -->
-					<c:forEach var=i begin="${beginPage }" end="${endPage }" step="1">
-						<li class="page-item"><a href="#" class="page-link"
-							style="margin-top: 0; height: 40px; color: pink; border: 1px solid #643691;">${i }</a>
+					<c:forEach var="pageNum" begin="${pc.beginPage }" end="${pc.endPage }">
+						<li class="page-item">
+						<a href="<c:url value='/board/list?page=${pageNum }' />" class="page-link" style="margin-top: 0; height: 40px; color: pink; border: 1px solid #643691;">${pageNum } </a>
 						</li>
 					</c:forEach>
-					
 					<!-- 다음 버튼 -->
-					<li class="page-item next"><a class="page-link" href="#"
-						style="background-color: #643691; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">다음</a>
-					</li>
+					<c:if test="${pc.next }">
+						<li class="page-item"><a class="page-link" href="<c:url value='/board/list?page=${pc.endPage+1 }' />"
+							style="background-color: #643691; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">다음</a>
+						</li>					
+					</c:if>
 				</ul>
 				<!-- 페이징 처리 끝 -->
 			</div>
@@ -126,16 +129,6 @@ header.masthead {
 	const result = '${msg}';
 	if(result === 'regSuccess'){
 		alert('게시글 등록이 완료되었습니다.');
-	}
-	
-	// 이전 버튼 비활성화 여부
-	if(!{prev}){
-		$('.prev').css("display","none");
-	}
-	
-	// 다음 버튼 비활성화 여부
-	if(!{next}){
-		$('.next').css("display","none");
 	}
 </script>
 

@@ -24,9 +24,10 @@ public class BoardController {
 	private IBoardService service;
 	// 페이징 처리 이후 게시글 목록 불러오기 요청
 	
-	@GetMapping("/list/{page}/{countPerPage}")
+	@GetMapping("/list")
 	public String list(PageVO paging, Model model) {
 		System.out.println("/board/list: GET");
+	
 		System.out.println("페이지 번호: "+paging.getPage());
 		System.out.println("페이지당 게시글 수 "+paging.getCountPerPage());
 		List<BoardVO> list = service.getArticleList(paging);
@@ -35,8 +36,9 @@ public class BoardController {
 		PageCreator pc = new PageCreator();
 		pc.setPaging(paging);
 		pc.setArticleTotalCount(service.countArticles());
+		System.out.println("시작페이지 번호: "+pc.getBeginPage());
 		
-		model.addAttribute("art", list);
+		model.addAttribute("articles", list);
 		model.addAttribute("pc",pc);
 		
 		return "board/list";
