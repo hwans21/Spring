@@ -32,7 +32,7 @@ public class BoardMapperTest {
 			mapper.insert(article);
 		}
 	}
-	
+	/*
 	// 게시글 목록 전체 조회 테스트
 	@Test
 	public void getListTest() {
@@ -42,6 +42,7 @@ public class BoardMapperTest {
 		}
 		System.out.println("게시물 개수: "+ list.size());
 	}
+	*/
 	
 	//게시글 단일 조회 테스트
 	// 44번글을 조회해서 글 상세 내용을 출력해 주세요

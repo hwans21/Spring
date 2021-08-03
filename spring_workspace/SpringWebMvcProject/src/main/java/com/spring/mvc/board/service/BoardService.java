@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.spring.mvc.board.commons.PageVO;
 import com.spring.mvc.board.model.BoardVO;
 import com.spring.mvc.board.repository.IBoardMapper;
 
@@ -21,10 +22,10 @@ public class BoardService implements IBoardService {
 	}
 
 	@Override
-	public List<BoardVO> getArticleList() {
+	public List<BoardVO> getArticleList(PageVO paging) {
 		// TODO Auto-generated method stub
 		
-		return mapper.getArticleList();
+		return mapper.getArticleList(paging);
 	}
 
 	@Override
@@ -43,6 +44,12 @@ public class BoardService implements IBoardService {
 	public void delete(int boardNo) {
 		// TODO Auto-generated method stub
 		mapper.delete(boardNo);
+	}
+
+	@Override
+	public int countArticles() {
+		// TODO Auto-generated method stub
+		return mapper.countArticles();
 	}
 
 }
