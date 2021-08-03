@@ -89,7 +89,8 @@ public class BoardController {
 	
 	//게시글 수정 화면 요청
 	@GetMapping("/modify")
-	public void modify(int boardNum, Model model) {
+	public void modify(int boardNum, Model model,
+					@ModelAttribute("p") PageVO paging) {
 		System.out.println("/board/modify: GET");
 		model.addAttribute("article",service.getArticle(boardNum));
 	}

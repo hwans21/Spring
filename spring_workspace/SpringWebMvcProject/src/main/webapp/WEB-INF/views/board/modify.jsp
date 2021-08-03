@@ -39,7 +39,7 @@
 
 						<input class="btn" type="submit" value="수정"
 							style="background-color: orange; margin-top: 0; height: 40px; color: white; border: 0px solid #388E3C; opacity: 0.8" />
-						<a class="btn" href="<c:url value="/board/list" />"
+						<a class="btn" href="<c:url value="/board/list?page=${p.page }&countPerPage=${p.countPerPage }" />"
 							style="background-color: #643691; margin-top: 0; height: 40px; color: white; border: 0px solid #388E3C; opacity: 0.8">목록</a>&nbsp;&nbsp;
 
 					</form>
