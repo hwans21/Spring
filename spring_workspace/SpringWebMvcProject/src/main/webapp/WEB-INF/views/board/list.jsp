@@ -4,24 +4,24 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../include/header.jsp" />
 <style>
-header.masthead {
-	display: none;
-}
+	header.masthead {
+		display: none;
+	}
 
-.btn-orange {
-	background-color: orange;
-	color: white;
-}
+	.btn-orange {
+		background-color: orange;
+		color: white;
+	}
 
-.btn-cpp {
-	background-color: #643691;
-	color: white;
-}
+	.btn-cpp {
+		background-color: #643691;
+		color: white;
+	}
 
-.page-active {
-	background: #643691;
-	color: white;
-}
+	.page-active {
+		background: #643691;
+		color: white;
+	}
 </style>
 
 <br>
@@ -36,10 +36,10 @@ header.masthead {
 		<div class="col-lg-8">
 			<div class="panel-body">
 				<h2 class="page-header">
-					<span style="color: #643691;">Spring</span> 자유 게시판 
-					<span id="count-per-page" style="float: right;"> 
-						<input class="btn btn-cpp" type="button" value="10"> 
-						<input class="btn btn-cpp" type="button" value="20"> 
+					<span style="color: #643691;">Spring</span> 자유 게시판
+					<span id="count-per-page" style="float: right;">
+						<input class="btn btn-cpp" type="button" value="10">
+						<input class="btn btn-cpp" type="button" value="20">
 						<input class="btn btn-cpp" type="button" value="30">
 					</span>
 
@@ -64,7 +64,7 @@ header.masthead {
 							<td>${art.writer }</td>
 
 							<td><a style="margin-top: 0; height: 40px; color: orange;"
-								href="<c:url value='/board/content/${art.boardNum }?page=${pc.paging.page }&countPerPage=${pc.paging.countPerPage }' />">
+									href="<c:url value='/board/content/${art.boardNum }?page=${pc.paging.page }&countPerPage=${pc.paging.countPerPage }' />">
 									${art.title } </a></td>
 
 							<td>${art.regDate }</td>
@@ -80,24 +80,23 @@ header.masthead {
 					<!-- 이전 버튼 -->
 					<c:if test="${pc.prev }">
 						<li class="page-item"><a class="page-link"
-							href="<c:url value='/board/list?page=${pc.beginPage-1 }&countPerPage=${pc.paging.countPerPage }' />"
-							style="background-color: #643691; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">이전</a>
+								href="<c:url value='/board/list?page=${pc.beginPage-1 }&countPerPage=${pc.paging.countPerPage }' />"
+								style="background-color: #643691; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">이전</a>
 						</li>
 					</c:if>
 					<!-- 페이지 번호 버튼 -->
-					<c:forEach var="pageNum" begin="${pc.beginPage }"
-						end="${pc.endPage }">
+					<c:forEach var="pageNum" begin="${pc.beginPage }" end="${pc.endPage }">
 						<li class="page-item"><a
-							href="<c:url value='/board/list?page=${pageNum }&countPerPage=${pc.paging.countPerPage }' />"
-							class="page-link ${pc.paging.page == pageNum ? 'page-active': ''}"
-							style="margin-top: 0; height: 40px; color: pink; border: 1px solid #643691;">${pageNum }
-						</a></li>
+								href="<c:url value='/board/list?page=${pageNum }&countPerPage=${pc.paging.countPerPage }' />"
+								class="page-link ${pc.paging.page == pageNum ? 'page-active': ''}"
+								style="margin-top: 0; height: 40px; color: pink; border: 1px solid #643691;">${pageNum }
+							</a></li>
 					</c:forEach>
 					<!-- 다음 버튼 -->
 					<c:if test="${pc.next }">
 						<li class="page-item"><a class="page-link"
-							href="<c:url value='/board/list?page=${pc.endPage+1 }&countPerPage=${pc.paging.countPerPage }' />"
-							style="background-color: #643691; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">다음</a>
+								href="<c:url value='/board/list?page=${pc.endPage+1 }&countPerPage=${pc.paging.countPerPage }' />"
+								style="background-color: #643691; margin-top: 0; height: 40px; color: white; border: 0px solid #f78f24; opacity: 0.8">다음</a>
 						</li>
 					</c:if>
 				</ul>
@@ -118,16 +117,14 @@ header.masthead {
 		</div>
 		<div class="form-group col-sm-4">
 			<div class="input-group">
-				<input type="text" class="form-control" name="keyword"
-					id="keywordInput" placeholder="검색어"> <span
-					class="input-group-btn"> <input type="button" value="검색"
-					class="btn btn-cpp btn-flat" id="searchBtn">
+				<input type="text" class="form-control" name="keyword" id="keywordInput" placeholder="검색어"> <span
+					class="input-group-btn"> <input type="button" value="검색" class="btn btn-cpp btn-flat"
+						id="searchBtn">
 				</span>
 			</div>
 		</div>
 		<div class="col-sm-2">
-			<a href="<c:url value='/board/write' />"
-				class="btn btn-cpp float-right">글쓰기</a>
+			<a href="<c:url value='/board/write' />" class="btn btn-cpp float-right">글쓰기</a>
 		</div>
 		<div class="col-sm-2"></div>
 	</div>
@@ -141,17 +138,28 @@ header.masthead {
 	if (result === 'regSuccess') {
 		alert('게시글 등록이 완료되었습니다.');
 	}
-	
+
 	//start jQuery
-	$(function(){
-		
+	$(function () {
+
 		//한 페이지당 보여줄 게시물 개수가 변동하는 이벤트 처리
-		$('#count-per-page > .btn-cpp').click(function(){
+		$('#count-per-page > .btn-cpp').click(function () {
 			const count = $(this).val();
 			console.log(count);
-			location.href = "/board/list?page=${pc.paging.page}&countPerPage="+count;
+			location.href = "/board/list?page=${pc.paging.page}&countPerPage=" + count;
 		});
-			
+		
+		//검색 버튼 이벤트 처리
+		$('#searchBtn').click(function(){
+			const keyword = $('#keywordInput').val();
+			const condition = $('#condition').val();
+			/*
+			console.log(keyword);
+			console.log(condition);
+			*/
+			location.href="/board/list?keyword="+keyword+"&condition="+condition;
+		});
+
 	}); //end jQuery
 </script>
 
