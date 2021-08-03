@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -79,7 +80,8 @@ public class BoardController {
 	//파라미터값에 .이 포함되어 있으면, .뒤의 값은 잘립니다.
 	//{} 안에 변수명을 지어주시고, @PathVariable 괄호 안에 영역을 지목해서 값을 받아옵니다.
 //	public String content(@PathVariable("boardNum") int boardNum, Model model) {
-	public String content(@PathVariable int boardNum, Model model) {
+	public String content(@PathVariable int boardNum, Model model,
+						@ModelAttribute("p") PageVO paging) {
 		System.out.println("/board/content?="+boardNum+": GET");
 		model.addAttribute("article", service.getArticle(boardNum));
 		return "/board/content";

@@ -62,7 +62,7 @@ header.masthead {
 		// 목록 버튼 클릭 이벤트 처리
 		$('#list-btn').click(function() {
 			console.log('목록 버튼이 클릭됨!');
-			location.href = '/board/list';
+			location.href = '/board/list?page='+${p.page }+'&countPerPage='+${p.countPerPage };
 		});
 		const formElement = $('#formObj');
 
