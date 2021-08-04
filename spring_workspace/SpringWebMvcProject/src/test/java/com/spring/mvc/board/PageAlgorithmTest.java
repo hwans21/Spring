@@ -49,7 +49,7 @@ public class PageAlgorithmTest {
 	public void pagingAlgorithmTest() {
 		// 총 게시물 수 구하는 테스트
 		System.out.println("--------------------------");
-		System.out.println(mapper.countArticles());
+//		System.out.println(mapper.countArticles());
 		System.out.println("--------------------------");
 
 		// 끝 페이지 번호 계산 테스트
@@ -72,16 +72,16 @@ public class PageAlgorithmTest {
 		boolean isPrev = (beginPage == 1)? false : true;
 		
 		//다음버튼 활성 여부
-		boolean isNext = (endPage * vo.getCountPerPage() >= mapper.countArticles()) ? false : true;
+//		boolean isNext = (endPage * vo.getCountPerPage() >= mapper.countArticles()) ? false : true;
 		
 		System.out.println("--------------------------");
 		System.out.println("이전버튼 활성화 여부 : "+ isPrev);
-		System.out.println("다음버튼 활성화 여부 : "+ isNext);
+//		System.out.println("다음버튼 활성화 여부 : "+ isNext);
 		System.out.println("--------------------------");
 		
 		//끝 페이지 수 보정
-		if(!isNext)
-			endPage = (int) (Math.ceil((double)mapper.countArticles()/vo.getCountPerPage()));
+//		if(!isNext)
+//			endPage = (int) (Math.ceil((double)mapper.countArticles()/vo.getCountPerPage()));
 		System.out.println("--------------------------");
 		System.out.println("끝 페이지 번호 : "+ endPage);
 		System.out.println("--------------------------");

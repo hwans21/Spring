@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.mvc.board.commons.PageCreator;
 import com.spring.mvc.board.commons.PageVO;
+import com.spring.mvc.board.commons.SearchVO;
 import com.spring.mvc.board.model.BoardVO;
 import com.spring.mvc.board.service.IBoardService;
 
@@ -26,19 +27,21 @@ public class BoardController {
 	// 페이징 처리 이후 게시글 목록 불러오기 요청
 	
 	@GetMapping("/list")
-	public String list(PageVO paging, Model model, String keyword, String condition) {
+//	public String list(PageVO paging, Model model, String keyword, String condition) {
+	public String list(SearchVO search, Model model) {
 		System.out.println("/board/list: GET");
 	
-		System.out.println("페이지 번호: "+paging.getPage());
-		System.out.println("페이지당 게시글 수 "+paging.getCountPerPage());
-		System.out.println("검색어"+keyword);
-		System.out.println("검색조건"+condition);
-		List<BoardVO> list = service.getArticleList(paging,keyword,condition);
+		System.out.println("페이지 번호: "+search.getPage());
+		System.out.println("페이지당 게시글 수 "+search.getCountPerPage());
+		System.out.println("검색어"+search.getKeyword());
+		System.out.println("검색조건"+search.getCondition());
+//		List<BoardVO> list = service.getArticleList(paging,keyword,condition);
+		List<BoardVO> list = service.getArticleList(search);
 		System.out.println("페이징 처리 후 게시물의 수 : "+list.size());
 		
 		PageCreator pc = new PageCreator();
-		pc.setPaging(paging);
-		pc.setArticleTotalCount(service.countArticles());
+		pc.setPaging(search);
+		pc.setArticleTotalCount(service.countArticles(search));
 		System.out.println("시작페이지 번호: "+pc.getBeginPage());
 		
 		model.addAttribute("articles", list);

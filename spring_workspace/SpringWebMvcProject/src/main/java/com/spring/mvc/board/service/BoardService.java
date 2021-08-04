@@ -1,11 +1,14 @@
 package com.spring.mvc.board.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.mvc.board.commons.PageVO;
+import com.spring.mvc.board.commons.SearchVO;
 import com.spring.mvc.board.model.BoardVO;
 import com.spring.mvc.board.repository.IBoardMapper;
 
@@ -22,10 +25,17 @@ public class BoardService implements IBoardService {
 	}
 
 	@Override
-	public List<BoardVO> getArticleList(PageVO paging,String keyword, String condition) {
+//	public List<BoardVO> getArticleList(PageVO paging,String keyword, String condition) {
+	public List<BoardVO> getArticleList(SearchVO search) {
 		// TODO Auto-generated method stub
 		
-		return mapper.getArticleList(paging, keyword,  condition);
+//		return mapper.getArticleList(paging, keyword,  condition);
+//		Map<String, Object> datas = new HashMap<String, Object>();
+//		datas.put("keyword", keyword);
+//		datas.put("condition", condition);
+//		datas.put("paging", paging);
+//		return mapper.getArticleList(datas);
+		return mapper.getArticleList(search);
 	}
 
 	@Override
@@ -47,9 +57,9 @@ public class BoardService implements IBoardService {
 	}
 
 	@Override
-	public int countArticles() {
+	public int countArticles(SearchVO search) {
 		// TODO Auto-generated method stub
-		return mapper.countArticles();
+		return mapper.countArticles(search);
 	}
 
 }

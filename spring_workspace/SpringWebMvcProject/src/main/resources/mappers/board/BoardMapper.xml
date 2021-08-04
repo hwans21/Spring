@@ -2,15 +2,13 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
+
 <mapper namespace="com.spring.mvc.board.repository.IBoardMapper">
 
-<!-- 
-	VO멤버변수와 DB의 컬럼명이 같으면
-	굳이 resultMap쓰지 않아도 동작한다.
- -->
-	<resultMap type="com.spring.mvc.board.model.BoardVO" id="BoardMap"> 
-		<id property="boardNum" column="board_no"/>
+	<!-- VO멤버변수와 DB의 컬럼명이 같으면 굳이 resultMap쓰지 않아도 동작한다. -->
+	<resultMap type="com.spring.mvc.board.model.BoardVO"
+		id="BoardMap">
+		<id property="boardNum" column="board_no" />
 		<result property="regDate" column="reg_date" />
 		<result property="viewCnt" column="view_cnt" />
 	</resultMap>
@@ -20,56 +18,67 @@
 		(board_no,title,content,writer)
 		VALUES(board_seq.NEXTVAL,#{title},#{content},#{writer})
 	</insert>
-	
-	<!-- 
-		쿼리문을 작성할 때 '<','>','&' 등의 기호를 사용해야 하는 경우가 생기는데,
-		xml파일에서 이를 그냥 사용할 경우 태그로 인식하는 경우가 종종 있습니다.
-		이럴 경우에는 해당 기호가 태그 문법이 아닌 실제 쿼리에 필요한 코드라고 인식시켜야 합니다.
-		이 때 사용하는 문법이 <!CDATA[[...쿼리문...]]> 입니다.
-		CDATA안에 쿼리를 작성하면 쿼리 내용의 괄호나 특수문자를 xml문법으로 인식하지 않고
-		문자열로 인식합니다.
-	 -->
+
+	<!-- 쿼리문을 작성할 때 '<','>','&' 등의 기호를 사용해야 하는 경우가 생기는데, xml파일에서 이를 그냥 사용할 경우 
+		태그로 인식하는 경우가 종종 있습니다. 이럴 경우에는 해당 기호가 태그 문법이 아닌 실제 쿼리에 필요한 코드라고 인식시켜야 합니다. 
+		이 때 사용하는 문법이 <!CDATA[[...쿼리문...]]> 입니다. CDATA안에 쿼리를 작성하면 쿼리 내용의 괄호나 특수문자를 
+		xml문법으로 인식하지 않고 문자열로 인식합니다. -->
 	<select id="getArticleList" resultMap="BoardMap">
 		SELECT * FROM(
 			SELECT ROWNUM as rn, tbl.* FROM(
-				SELECT * FROM mvc_board 
-				<if test="#{condition} == 'title'">
+				SELECT * FROM mvc_board
+				<if test="condition == 'title'">
 					WHERE title LIKE '%'||#{keyword}||'%'
 				</if>
-				<if test="#{condition} == 'writer'">
+				<if test="condition == 'writer'">
 					WHERE writer LIKE '%'||#{keyword}||'%'
 				</if>
-				<if test="#{condition} == 'content'">
+				<if test="condition == 'content'">
 					WHERE content LIKE '%'||#{keyword}||'%'
 				</if>
-				<if test="#{condition} == 'titleContent'">
+				<if test="condition == 'titleContent'">
 					WHERE title LIKE '%'||#{keyword}||'%'
 					OR content LIKE '%'||#{keyword}||'%'
 				</if>
-				ORDER BY board_no DESC		
-			) tbl 
+				ORDER BY board_no DESC
+			) tbl
 		)
 		<![CDATA[ 
-		WHERE rn > ((#{paging.page}-1) * #{paging.countPerPage})
-		AND rn <= #{paging.page} * #{paging.countPerPage}
+		WHERE rn > ((#{page}-1) * #{countPerPage})
+		AND rn <= #{page} * #{countPerPage}
 		]]>
 	</select>
 	<select id="getArticle" resultMap="BoardMap">
 		SELECT * FROM mvc_board
-		WHERE board_no = #{boardNum}
+		WHERE
+		board_no = #{boardNum}
 	</select>
-	
+
 	<update id="update">
-		UPDATE mvc_board SET title = #{title}, content=#{content}
+		UPDATE mvc_board SET title = #{title},
+		content=#{content}
 		WHERE board_no = #{boardNum}
 	</update>
-	
+
 	<delete id="delete">
 		DELETE FROM mvc_board WHERE board_no = #{boardNum}
 	</delete>
-	
+
 	<select id="countArticles" resultType="int">
 		SELECT COUNT(*) FROM mvc_board
+		<if test="condition == 'title'">
+			WHERE title LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'writer'">
+			WHERE writer LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'content'">
+			WHERE content LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'titleContent'">
+			WHERE title LIKE '%'||#{keyword}||'%'
+			OR content LIKE '%'||#{keyword}||'%'
+		</if>
 	</select>
-	
+
 </mapper>
