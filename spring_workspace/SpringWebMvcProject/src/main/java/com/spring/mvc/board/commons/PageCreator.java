@@ -2,6 +2,8 @@ package com.spring.mvc.board.commons;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import com.spring.mvc.board.repository.IBoardMapper;
 
@@ -26,6 +28,18 @@ public class PageCreator {
 	//한 화면에 보여질 페이지 버튼 수
 	private final int displayPageNum = 10; 
 	
+	
+	//URI 파라미터를 쉽게 만들어 주는 유틸 메서드
+	public String makeURI(int page) {
+		UriComponents ucp = UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("countPerPage", paging.getCountPerPage())
+				.queryParam("keyword", ((SearchVO) paging).getKeyword()) // 연산자의 우선순위 (SearchVO) paging.getKeyword()
+				.queryParam("condition", ((SearchVO) paging).getCondition())
+				.build();
+		
+		return ucp.toUriString();
+	}
 	//페이징 알고리즘을 수행할 메서드 선언
 	private void calcDataOfPage() {
 				
