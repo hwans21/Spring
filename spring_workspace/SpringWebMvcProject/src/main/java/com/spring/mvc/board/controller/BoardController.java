@@ -86,7 +86,7 @@ public class BoardController {
 	//{} 안에 변수명을 지어주시고, @PathVariable 괄호 안에 영역을 지목해서 값을 받아옵니다.
 //	public String content(@PathVariable("boardNum") int boardNum, Model model) {
 	public String content(@PathVariable int boardNum, Model model,
-						@ModelAttribute("p") PageVO paging) {
+						@ModelAttribute("p") SearchVO search) {
 		System.out.println("/board/content?="+boardNum+": GET");
 		model.addAttribute("article", service.getArticle(boardNum));
 		return "/board/content";

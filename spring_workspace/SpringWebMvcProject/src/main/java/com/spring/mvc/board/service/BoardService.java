@@ -41,6 +41,7 @@ public class BoardService implements IBoardService {
 	@Override
 	public BoardVO getArticle(int boardNo) {
 		// TODO Auto-generated method stub
+		mapper.updateViewCnt(boardNo);
 		return mapper.getArticle(boardNo);
 	}
 

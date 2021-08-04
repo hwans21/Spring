@@ -59,4 +59,7 @@ public interface IBoardMapper {
 	// 검색결과를 품고 있는 SearchVO를 매개값으로 받겠습니다.
 	int countArticles(SearchVO search);
 	
+	//조회수 상승 처리 기능
+	void updateViewCnt(int boardNo);
+	
 }
