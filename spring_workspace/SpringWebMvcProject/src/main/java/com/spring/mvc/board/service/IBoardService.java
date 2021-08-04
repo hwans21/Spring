@@ -10,7 +10,7 @@ public interface IBoardService {
 	void insert(BoardVO article);
 
 	// 페이징 처리시 게시글 전체 목록 조회 기능
-	List<BoardVO> getArticleList(PageVO paging);
+	List<BoardVO> getArticleList(PageVO paging,String keyword, String condition);
 
 	// 게시글 상세 조회 기능
 	BoardVO getArticle(int boardNo);

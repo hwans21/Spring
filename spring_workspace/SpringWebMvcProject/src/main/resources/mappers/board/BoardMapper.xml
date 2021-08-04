@@ -33,12 +33,25 @@
 		SELECT * FROM(
 			SELECT ROWNUM as rn, tbl.* FROM(
 				SELECT * FROM mvc_board 
+				<if test="#{condition} == 'title'">
+					WHERE title LIKE '%'||#{keyword}||'%'
+				</if>
+				<if test="#{condition} == 'writer'">
+					WHERE writer LIKE '%'||#{keyword}||'%'
+				</if>
+				<if test="#{condition} == 'content'">
+					WHERE content LIKE '%'||#{keyword}||'%'
+				</if>
+				<if test="#{condition} == 'titleContent'">
+					WHERE title LIKE '%'||#{keyword}||'%'
+					OR content LIKE '%'||#{keyword}||'%'
+				</if>
 				ORDER BY board_no DESC		
 			) tbl 
 		)
 		<![CDATA[ 
-		WHERE rn > ((#{page}-1) * #{countPerPage})
-		AND rn <= #{page} * #{countPerPage}
+		WHERE rn > ((#{paging.page}-1) * #{paging.countPerPage})
+		AND rn <= #{paging.page} * #{paging.countPerPage}
 		]]>
 	</select>
 	<select id="getArticle" resultMap="BoardMap">

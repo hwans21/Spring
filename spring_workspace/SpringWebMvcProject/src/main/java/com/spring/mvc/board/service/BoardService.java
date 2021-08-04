@@ -22,10 +22,10 @@ public class BoardService implements IBoardService {
 	}
 
 	@Override
-	public List<BoardVO> getArticleList(PageVO paging) {
+	public List<BoardVO> getArticleList(PageVO paging,String keyword, String condition) {
 		// TODO Auto-generated method stub
 		
-		return mapper.getArticleList(paging);
+		return mapper.getArticleList(paging, keyword,  condition);
 	}
 
 	@Override

@@ -26,12 +26,14 @@ public class BoardController {
 	// 페이징 처리 이후 게시글 목록 불러오기 요청
 	
 	@GetMapping("/list")
-	public String list(PageVO paging, Model model) {
+	public String list(PageVO paging, Model model, String keyword, String condition) {
 		System.out.println("/board/list: GET");
 	
 		System.out.println("페이지 번호: "+paging.getPage());
 		System.out.println("페이지당 게시글 수 "+paging.getCountPerPage());
-		List<BoardVO> list = service.getArticleList(paging);
+		System.out.println("검색어"+keyword);
+		System.out.println("검색조건"+condition);
+		List<BoardVO> list = service.getArticleList(paging,keyword,condition);
 		System.out.println("페이징 처리 후 게시물의 수 : "+list.size());
 		
 		PageCreator pc = new PageCreator();
