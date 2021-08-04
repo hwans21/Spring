@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.spring.db.repository.IBoardMapper">
+	<resultMap type="com.spring.db.model.BoardVO" id="BoardMap">
+		<id property="boardNo" column="board_id"/><!-- primary key  맵핑 -->
+		<result property="writer" column="board_writer" /> <!-- 나머지 컬럼 -->
+		<result property="title" column="board_title" />
+		<result property="content" column="board_content" />
+	</resultMap>
+	<insert id="insertArticle">
+		INSERT INTO board 
+		VALUES(board_id_seq.NEXTVAL,#{writer},#{title},#{content})
+	</insert>
+	
+	<!-- 점수 조회 기능 -->
+	<select id="getArticle" resultMap="BoardMap">
+		SELECT * FROM board
+		ORDER BY board_id ASC
+	</select>
+	<!-- getArticle(매개변수) 이름이 같았을 때 오류가 생김 
+	그래서 getArticleOne으로 변경 -->
+	<select id="getArticleOne" resultMap="BoardMap">
+		SELECT * FROM board
+		WHERE board_id=#{bId}
+	</select>
+	
+	<update id="updateArticle">
+		UPDATE board SET board_writer=#{writer},
+						 board_title=#{title}, 
+						 board_content=#{content} 
+		WHERE board_id=#{boardNo}
+	</update>
+	
+	<delete id="deleteArticle">
+		DELETE FROM board WHERE board_id=#{bId}
+	</delete>
+	
+	<select id="searchArticle" resultMap="BoardMap">
+		SELECT * FROM board WHERE board_writer LIKE #{keyword}
+	</select>
+</mapper>
