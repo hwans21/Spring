@@ -12,6 +12,24 @@
 		<result property="regDate" column="reg_date" />
 		<result property="viewCnt" column="view_cnt" />
 	</resultMap>
+	<!-- 중복되는 동적SQL문을 미리 선언해 놓고 삽입하는 방식 
+		<include refid="sql id" /> 를 통해 삽입해서 사용합니다.
+	-->
+	<sql id="search">
+		<if test="condition == 'title'">
+			WHERE title LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'writer'">
+			WHERE writer LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'content'">
+			WHERE content LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'titleContent'">
+			WHERE title LIKE '%'||#{keyword}||'%'
+			OR content LIKE '%'||#{keyword}||'%'
+		</if>
+	</sql>
 
 	<insert id="insert">
 		INSERT INTO mvc_board
@@ -27,6 +45,8 @@
 		SELECT * FROM(
 			SELECT ROWNUM as rn, tbl.* FROM(
 				SELECT * FROM mvc_board
+				<!-- 
+				원하는 위치에 직접 동적 sql문을 삽입하는 방식.
 				<if test="condition == 'title'">
 					WHERE title LIKE '%'||#{keyword}||'%'
 				</if>
@@ -39,7 +59,11 @@
 				<if test="condition == 'titleContent'">
 					WHERE title LIKE '%'||#{keyword}||'%'
 					OR content LIKE '%'||#{keyword}||'%'
-				</if>
+				</if> -->
+				
+				<include refid="search" />
+				
+				
 				ORDER BY board_no DESC
 			) tbl
 		)
@@ -66,7 +90,7 @@
 
 	<select id="countArticles" resultType="int">
 		SELECT COUNT(*) FROM mvc_board
-		<if test="condition == 'title'">
+		<!-- <if test="condition == 'title'">
 			WHERE title LIKE '%'||#{keyword}||'%'
 		</if>
 		<if test="condition == 'writer'">
@@ -78,7 +102,8 @@
 		<if test="condition == 'titleContent'">
 			WHERE title LIKE '%'||#{keyword}||'%'
 			OR content LIKE '%'||#{keyword}||'%'
-		</if>
+		</if> -->
+		<include refid="search" />
 	</select>
 
 </mapper>
