@@ -1,4 +1,4 @@
-package com.spring.mvc;
+package com.spring.mvc.test;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,6 +7,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,6 +51,49 @@ public class RestControllerTest {
 		return subject;
 		
 	}
+	@GetMapping("/person")
+	public Person person() {
+		Person p = new Person();
+		p.setName("김철수");
+		p.setAge(30);
+		p.setHobbys(Arrays.asList("수영","독서","축구"));
+		return p;
+	}
+	
+	@GetMapping(value = "/getText", produces = "text/plain")
+	public String getText() {
+		System.out.println("/getText 요청이 들어옴!");
+		return "Hello world";
+	}
+	
+	@PostMapping("/getObject") 
+	public Person getObject(@RequestBody Person person) {
+		System.out.println("/getObject 요청이 들어옴!");
+		System.out.println("이름: "+person.getName());
+		System.out.println("나이: "+person.getAge());
+		System.out.println("취미: "+person.getHobbys());
+		
+		person.setAge(40);
+		return person;
+	}
+	
+	@GetMapping("/getPath/{sort}/{page}/{cpp}")
+	public Map<String, String> getPath(@PathVariable("sort") String sort,
+									@PathVariable("page") String page,
+									@PathVariable("cpp") String cpp){
+		
+		
+		Map<String, String> map = new HashMap<>();
+		map.put("종류", sort);
+		map.put("페이지번호", page);
+		map.put("게시물개수", cpp);
+		
+		
+		return map;
+	}
+	
+	
+	
 	
 }
 
