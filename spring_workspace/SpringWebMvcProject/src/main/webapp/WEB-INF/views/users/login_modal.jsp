@@ -174,8 +174,8 @@
 	//start JQuery
 	$(function(){
 		//각 입력값들의 유효성 검증을 위한 정규표현식을 변수로 선언.
-		const getIdCheck = RegExp(/^[a-zA-Z0-9]{4,14} $/);
-		const getPwCheck = RegExp(/^([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9]) $/)
+		const getIdCheck = RegExp(/^[a-zA-Z0-9]{4,14}$/);
+		const getPwCheck = RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/)
 
 		// '/^' : 정규표현식 시작
 		// '$/' : 정규표현식 끝
