@@ -211,6 +211,13 @@
 					success : function(result){ //매개변수에 통신 성공시 데이터가 저장됨 
 						//서버와의 통신 성공 시 실행할 내용
 						console.log("통신 성공!: "+result);
+						if(result === 'available'){
+							$('#user_id').css('background-color','aqua'); //ajax안이라 this를 인식 못함
+							$('#idChk').html("<b style='font-size:14px; color:green;'>[아이디 사용이 가능합니다!]</b>");
+						} else{
+							$('#user_id').css('background-color','pink');
+							$('#idChk').html("<b style='font-size:14px; color:red;'>[아이디가 중복되었습니다!]</b>");
+						}
 					},
 					error : function(){
 						console.log("통신 실패!");
@@ -225,12 +232,3 @@
 	}); //end JQuery
 
 </script>
-
-
-
-
-
-
-
-
-
