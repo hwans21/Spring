@@ -40,7 +40,8 @@ header.masthead {
 						<input type="hidden" name="boardNum" value="${article.boardNum }">
 						<input type="hidden" name="page" value="${p.page }">
 						<input type="hidden" name="countPerPage" value="${p.countPerPage }">
-						
+						<!-- <input type="hidden" name="keyword" value="${p.keyword}">
+						<input type="hidden" name="condition" value="${p.condition}"> -->
 						
 						<input id="list-btn" class="btn" type="button" value="목록"
 							style="background-color: #643691; margin-top: 0; height: 40px; color: white; border: 0px solid #388E3C; opacity: 0.8">&nbsp;&nbsp;

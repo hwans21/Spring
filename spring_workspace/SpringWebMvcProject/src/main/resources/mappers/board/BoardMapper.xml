@@ -60,6 +60,11 @@
 					WHERE title LIKE '%'||#{keyword}||'%'
 					OR content LIKE '%'||#{keyword}||'%'
 				</if> -->
+				<!-- <choose>
+					<when test="">~~~</when>
+					<when test="">~~~~</when>
+					<otherwise>~~~</otherwise>
+				</choose> -->
 				
 				<include refid="search" />
 				

@@ -106,7 +106,7 @@ public class BoardController {
 		System.out.println("/board/modify: POST");
 		System.out.println("요청된 글 번호: "+article.getBoardNum());
 		service.update(article);
-		return "redirect:/board/content?boardNo="+article.getBoardNum();
+		return "redirect:/board/content/"+article.getBoardNum();
 	}
 	
 	@PostMapping("/delete")
