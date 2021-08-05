@@ -41,7 +41,8 @@ public class UserMapperTest {
 	@Test
 	public void membersInfo() {
 		
-		System.out.println(mapper.selectOne("test").toString());
+		System.out.println(mapper.selectOne("test"));
+		// toString은 안써도 메서드를 쓴 것처럼 출력이 됨
 		
 	}
 	
@@ -51,10 +52,17 @@ public class UserMapperTest {
 	public void memberDeleteTest() {
 		String account = "test";
 		mapper.delete(account);
-		if(mapper.checkId(account) == 1) {
+//		if(mapper.checkId(account) == 1) {
+//			System.out.println("탈퇴 실패");
+//		} else {
+//			System.out.println("탈퇴 성공");
+//		}
+		
+		if(mapper.selectOne(account)!=null) {
 			System.out.println("탈퇴 실패");
 		} else {
 			System.out.println("탈퇴 성공");
 		}
+		
 	}
 }

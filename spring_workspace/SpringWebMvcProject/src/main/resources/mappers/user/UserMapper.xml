@@ -5,7 +5,7 @@
     
 <mapper namespace="com.spring.mvc.user.repository.IUserMapper">
 	<resultMap type="com.spring.mvc.user.model.UserVO" id="UserMap">
-		<id property="account" column="account"/>
+		<!-- <id property="account" column="account"/> 이것도 같으면 안써줘도 됨-->
 		<result property="regDate" column="reg_date" />
 	</resultMap>
 	<insert id="register">
