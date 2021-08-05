@@ -173,10 +173,53 @@
 <script>
 	//start JQuery
 	$(function(){
+		//각 입력값들의 유효성 검증을 위한 정규표현식을 변수로 선언.
+		const getIdCheck = RegExp(/^[a-zA-z0-9]{4,14} $/);
+		// '/^' : 정규표현식 시작
+		// '$/' : 정규표현식 끝
+
 		//회원가입시 사용자의 입력값 검증!!
 
 		//1. ID 입력값 검증
-		
+		$('#user_id').keyup(function(){
+			if($(this).val() === ''){
+			//값을 넣지 않았을 경우
+				$(this).css('background-color','pink');
+				$('#idChk').html("<b style='font-size:14px; color:red;'>[아이디는 필수 정보입니다!]</b>");
+				//정규표현식변수.test('검증하고 싶은 값') -> return boolean type
+				//정규표현식에 어긋난 값이면 false, 올바른 값이면 true.
+			} else if(!getIdCheck.test($(this).val())) {
+			//아이디 입력값 유효성 검사(영문으로만 4~14글자 허용)	
+				$(this).css('background-color','pink');
+				$('#idChk').html("<b style='font-size:14px; color:red;'>[영문자, 숫자조합 4-14자!]</b>");
+			} else {
+			// ID 중복 확인(비동기 처리)
+			// 특정 로직의 실행이 끝날 때까지 기다리지 않고 먼저 코드를 실행(페이지 전환 없이 통신)
+				//ID 중복 확인 통신을 위해 입력값을 가져오기
+				const id = $(this).val();
+				
+				//ajax 호출
+				//클라이언트에서 서버와 비동기 통신을 진행하는 ajax 함수(jquery)
+				$.ajax({
+					type : "POST", // 서버에 전송하는 HTTP 전송방식
+					url : "/user/checkId", // 서버 요청 url
+					headers : {
+						"Content-Type" : "application/json"
+					}, //요청 헤더 정보
+					dataType : "text", //서버로부터 응답받을 데이터의 형태
+					data : id, //서버로 전송할 데이터
+					success : function(result){ //매개변수에 통신 성공시 데이터가 저장됨 
+						//서버와의 통신 성공 시 실행할 내용
+						console.log("통신 성공!: "+result);
+					},
+					error : function(){
+						console.log("통신 실패!");
+					}
+
+				}); // end ajax(아이디 중복 확인)
+			}
+			
+		}); //아이디 검증 끝
 
 
 	}); //end JQuery
