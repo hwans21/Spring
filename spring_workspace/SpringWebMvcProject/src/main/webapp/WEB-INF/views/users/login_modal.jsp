@@ -174,7 +174,9 @@
 	//start JQuery
 	$(function(){
 		//각 입력값들의 유효성 검증을 위한 정규표현식을 변수로 선언.
-		const getIdCheck = RegExp(/^[a-zA-z0-9]{4,14} $/);
+		const getIdCheck = RegExp(/^[a-zA-Z0-9]{4,14} $/);
+		const getPwCheck = RegExp(/^([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9]) $/)
+
 		// '/^' : 정규표현식 시작
 		// '$/' : 정규표현식 끝
 
@@ -227,7 +229,28 @@
 			}
 			
 		}); //아이디 검증 끝
+		
+		//2. 패스워드 입력값 검증.
+		$('#password').keyup(function(){
+			
+			//비밀번호란 공백 확인
+			if($(this).val() === ''){
+				$(this).css('background-color','pink');
+				$('#pwChk').html("<b style='font-size:14px; color:red;'>[비밀번호는 필수 정보입니다!]</b>");
+			} else if (!getPwCheck.test($(this).val()) || $(this).val().length < 8){
+				$(this).css('background-color','pink');
+				$('#pwChk').html("<b style='font-size:14px; color:red;'>[특수문자 + 영문자 조합 8글자 이상!]</b>");
+			} else {
+				//통과
+				$(this).css('background-color','aqua');
+				$('#pwChk').html("<b style='font-size:14px; color:green;'>[비밀번호 입력 완료!]</b>");
+			}
 
+
+
+		}); // 비밀번호 검증 끝
+
+		
 
 	}); //end JQuery
 
