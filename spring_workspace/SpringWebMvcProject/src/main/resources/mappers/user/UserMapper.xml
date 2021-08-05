@@ -4,5 +4,25 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="com.spring.mvc.user.repository.IUserMapper">
+	<resultMap type="com.spring.mvc.user.model.UserVO" id="UserMap">
+		<id property="account" column="account"/>
+		<result property="regDate" column="reg_date" />
+	</resultMap>
+	<insert id="register">
+		INSERT INTO mvc_user(account,password,name)
+		VALUES(#{account},#{password},#{name})
+	</insert>
+	<select id="checkId" resultType="int">
+		SELECT COUNT(*) FROM mvc_user
+		WHERE account = #{account}
+	</select>
 	
+	<select id="selectOne" resultMap="UserMap">
+		SELECT * FROM mvc_user
+		WHERE account = #{account}
+	</select>
+	
+	<delete id="delete">
+		DELETE FROM mvc_user WHERE account = #{account}
+	</delete>
 </mapper>
