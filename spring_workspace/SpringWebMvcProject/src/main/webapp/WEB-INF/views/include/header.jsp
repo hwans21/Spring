@@ -81,7 +81,7 @@
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#">HOME</a>
+            <a class="nav-link js-scroll-trigger" href="/">HOME</a>
           </li>
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="<c:url value='/introduce'/>">INTRODUCE</a>
@@ -129,7 +129,7 @@
           </li>
           
           <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" data-toggle="modal" data-target="#log-in">LOGIN</a>
+            <a class="nav-link js-scroll-trigger" data-toggle="modal" data-target="#log-in">LOGIN</a> <!-- 모달트리거 -->
           </li>
           
         </ul>
@@ -149,6 +149,6 @@
     </div>
   </header>
   
-<%@ include file="../users/login_modal.jsp" %>  
+<%@ include file="../users/login_modal.jsp" %>  <!-- jsp 삽입 -->
   
 

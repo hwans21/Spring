@@ -160,6 +160,7 @@
 								type="button" value="회원가입" 
 								class="btn form-control tooltipstered" id="signup-btn"
 								style="background-color: #643691; margin-top: 0; height: 40px; color: white; border: 0px solid #388E3C; opacity: 0.8">
+								<!-- 유효성검증을 위해 submit으로 하지 않고 button으로 함 -->
 							</td>
 						</tr>
 
@@ -169,7 +170,18 @@
 		</div>
 	</div>
 </div>
+<script>
+	//start JQuery
+	$(function(){
+		//회원가입시 사용자의 입력값 검증!!
 
+		//1. ID 입력값 검증
+		
+
+
+	}); //end JQuery
+
+</script>
 
 
 
