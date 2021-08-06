@@ -395,12 +395,6 @@
 
 		$('#signIn-btn').click(function () {
 			if (chk1 && chk2) {
-				const id = $('#signInId').val();
-				const pw = $('#signInPw').val();
-				const user = {
-					"account": id,
-					"password": pw
-				};
 				/*
 				아이디, 비밀번호를 가져오셔서 객체로 포장하세요.
 				비동기 통신을 진행하여 서버로 객체를 json형태로 전송하세요
@@ -410,6 +404,12 @@
 				idFail, pwFail, loginSuccess라는 문자열을 리턴할 것입니다.
 				전송방식 : POST, url: /user/loginCheck
 				*/
+				const id = $('#signInId').val();
+				const pw = $('#signInPw').val();
+				const user = {
+					"account": id,
+					"password": pw
+				};
 				$.ajax({
 					type: "POST",
 					url: "/user/loginCheck",
@@ -420,17 +420,29 @@
 					data: JSON.stringify(user),
 					success: function (result) {
 						if (result === 'idFail') {
-							console.log("아이디가 없습니다.");
+							 //console.log('아이디가 없습니다.');
+		                     $('#signInId').css('background-color', 'pink');
+		                     $('#idCheck').html('<b style="font-size: 14px; color: red;">[존재하지 않는 아이디입니다.]</b>');$('#signInPw').val('');
+		                     $('#signInId').focus(); //커서를 이동시키고, 스크롤도 해당 위치로 이동시키는 함수.
+		                     chk1 = false, chk2 = false;
 						} else if (result === 'pwFail') {
-							console.log("비밀번호가 틀렸습니다.");
+							//console.log('비밀번호가 틀렸습니다.');
+		                     $('#signInPw').css('background-color', 'pink');
+		                     $('#pwCheck').html('<b style="font-size: 14px; color: red;">[비밀번호가 틀렸습니다.]</b>');
+		                     $('#signInPw').val('');
+		                     $('#signInPw').focus();
+		                     chk2 = false;
 						} else if (result === 'loginSuccess') {
-							console.log("로그인 성공");
+							//console.log('로그인 성공!');
+		                     location.href='/';
 						}
 					},
 					error: function () {
 						console.log("통신실패");
 					}
 				}); // end ajax
+			} else {
+				alert('입력값을 다시 확인하세요!')
 			}
 		});
 

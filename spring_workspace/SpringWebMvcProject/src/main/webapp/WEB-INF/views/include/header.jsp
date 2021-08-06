@@ -77,7 +77,6 @@
         메뉴
         <i class="fas fa-bars"></i>
       </button>
-      
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav text-uppercase ml-auto">
           <li class="nav-item">
@@ -127,10 +126,20 @@
           <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="<c:url value='/board/list' />">BOARD</a>
           </li>
-          
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" data-toggle="modal" data-target="#log-in">LOGIN</a> <!-- 모달트리거 -->
-          </li>
+          				<!-- sessionScope.login -->
+          <c:if test="${login==null }">
+	          <li class="nav-item">
+	            <a class="nav-link js-scroll-trigger" data-toggle="modal" data-target="#log-in">LOGIN</a> <!-- 모달트리거 -->
+	          </li>
+          </c:if>
+          <c:if test="${login!=null }">
+          	<li class="nav-item">
+            	<a class="nav-link js-scroll-trigger" href="#">MYPAGE</a>
+          	</li>
+          	<li class="nav-item">
+            	<a class="nav-link js-scroll-trigger" href="<c:url value='/user/logout' />" onclick="return confirm('정말 로그아웃 하시겠습니까?')">LOGOUT</a>
+          	</li>
+          </c:if>
           
         </ul>
       </div>
@@ -151,4 +160,15 @@
   
 <%@ include file="../users/login_modal.jsp" %>  <!-- jsp 삽입 -->
   
+
+<script>
+  const msg = "${msg}"
+  if(msg === 'logout'){
+    alert('로그아웃 처리되었습니다.');
+  }
+</script>
+
+
+
+
 
