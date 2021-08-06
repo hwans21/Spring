@@ -70,8 +70,8 @@
 							<td>
 								<fmt:formatDate value="${art.regDate }" pattern="yyyy년 MM월 dd일 HH:mm" />
 							</td>
-							
-							
+
+
 							<td>${art.viewCnt }</td>
 						</tr>
 
@@ -90,8 +90,7 @@
 					</c:if>
 					<!-- 페이지 번호 버튼 -->
 					<c:forEach var="pageNum" begin="${pc.beginPage }" end="${pc.endPage }">
-						<li class="page-item"><a
-								href="<c:url value='/board/list${pc.makeURI(pageNum) }' />"
+						<li class="page-item"><a href="<c:url value='/board/list${pc.makeURI(pageNum) }' />"
 								class="page-link ${pc.paging.page == pageNum ? 'page-active': ''}"
 								style="margin-top: 0; height: 40px; color: pink; border: 1px solid #643691;">${pageNum }
 							</a></li>
@@ -113,17 +112,17 @@
 		<div class="col-sm-2"></div>
 		<div class="form-group col-sm-2">
 			<select id="condition" class="form-control" name="condition">
-				<option value="title" ${param.condition == 'title'? 'selected':'' } >제목</option>
-				<option value="content" ${param.condition == 'content'? 'selected':'' }>내용</option>
-				<option value="writer" ${param.condition == 'writer'? 'selected':'' }>작성자</option>
-				<option value="titleContent" ${param.condition == 'titleContent'? 'selected':'' }>제목+내용</option>
+				<option value="title" ${param.condition=='title' ? 'selected' :'' }>제목</option>
+				<option value="content" ${param.condition=='content' ? 'selected' :'' }>내용</option>
+				<option value="writer" ${param.condition=='writer' ? 'selected' :'' }>작성자</option>
+				<option value="titleContent" ${param.condition=='titleContent' ? 'selected' :'' }>제목+내용</option>
 			</select>
 		</div>
 		<div class="form-group col-sm-4">
 			<div class="input-group">
-				<input type="text" class="form-control" name="keyword" id="keywordInput" placeholder="검색어" value="${param.keyword }"> <span
-					class="input-group-btn"> <input type="button" value="검색" class="btn btn-cpp btn-flat"
-						id="searchBtn">
+				<input type="text" class="form-control" name="keyword" id="keywordInput" placeholder="검색어"
+					value="${param.keyword }"> <span class="input-group-btn"> <input type="button" value="검색"
+						class="btn btn-cpp btn-flat" id="searchBtn">
 				</span>
 			</div>
 		</div>
@@ -152,26 +151,26 @@
 			console.log(count);
 			location.href = "/board/list?page=${pc.paging.page}&countPerPage=" + count;
 		});
-		
+
 		//검색 버튼 이벤트 처리
-		$('#searchBtn').click(function(){
+		$('#searchBtn').click(function () {
 			const keyword = $('#keywordInput').val();
 			const condition = $('#condition').val();
 			/*
 			console.log(keyword);
 			console.log(condition);
 			*/
-			location.href="/board/list?keyword="+keyword+"&condition="+condition;
+			location.href = "/board/list?keyword=" + keyword + "&condition=" + condition;
 		});
-		
+
 		//엔터키 이벤트 처리
-		$('#keywordInput').keydown(function(key){
-			if(key.keyCode === 13){ //키가 13번이면 실행(13 -> 엔터)
+		$('#keywordInput').keydown(function (key) {
+			if (key.keyCode === 13) { //키가 13번이면 실행(13 -> 엔터)
 				// 검색버튼이 클릭되는 이벤트를 호출
 				$('#searchBtn').click();
 			}
 		});
-		
+
 
 	}); //end jQuery
 </script>

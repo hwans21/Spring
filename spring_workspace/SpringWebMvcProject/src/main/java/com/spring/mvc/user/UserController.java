@@ -70,7 +70,7 @@ public class UserController {
 		}
 		
 //		String id = vo.getAccount();
-//		String pw = vo.getPassword();
+//		String pw = vo.getPassword()ㅔㅔ;
 //		if(service.checkId(id) != 1) {
 //			return "idFail";
 //		} else if(!pw.equals(service.selectOne(id).getPassword())) {

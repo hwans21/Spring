@@ -30,6 +30,15 @@
 	
 	<context:component-scan base-package="com.spring.mvc" />
 	
+	<interceptors>
+		<interceptor>
+			<!-- <mapping path="/board/**"/> -->
+			<mapping path="/board/write"/>
+			<mapping path="/board/content/**"/>		
+			<beans:bean class="com.spring.mvc.board.commons.interceptor.BoardInterceptor" />
+		</interceptor>
+		
+	</interceptors>
 	
 	
 </beans:beans>
