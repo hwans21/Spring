@@ -1,5 +1,6 @@
 package com.spring.mvc.user;
 
+import java.io.IOException;
 import java.util.Date;
 
 import javax.servlet.http.Cookie;
@@ -116,15 +117,28 @@ public class UserController {
 	// 로그아웃 요청 처리
 	@GetMapping("/logout")
 //	public String logout(HttpSession session, RedirectAttributes ra) {
-	public ModelAndView logout(HttpSession session, RedirectAttributes ra) {
+	public void logout(HttpSession session, RedirectAttributes ra,
+							HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
+		
 		System.out.println("/user/logout: GET");
+		if(loginCookie != null) {
+			System.out.printf("%s : %s\n",loginCookie.getName(), loginCookie.getValue());
+			
+		}
+		
 		if(session.getAttribute("login") != null) {
 			//session.invalidate();
 			session.removeAttribute("login");
+			if(loginCookie != null) {
+				loginCookie.setMaxAge(0);
+				loginCookie.setValue(null);
+				response.addCookie(loginCookie);
+			}
 			ra.addFlashAttribute("msg","logout");
 		}
-	
-		return new ModelAndView("redirect:/");
+		response.sendRedirect("/");
 	}
 	
 }
