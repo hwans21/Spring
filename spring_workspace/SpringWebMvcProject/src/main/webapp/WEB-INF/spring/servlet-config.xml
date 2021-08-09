@@ -30,12 +30,25 @@
 	
 	<context:component-scan base-package="com.spring.mvc" />
 	
+	<!-- 인터셉터 빈 따로 등록 -->
+	<beans:bean id="autoLogin" class="com.spring.mvc.board.commons.interceptor.AutoLoginInterceptor" />
+	
 	<interceptors>
 		<interceptor>
 			<!-- <mapping path="/board/**"/> -->
 			<mapping path="/board/write"/>
 			<mapping path="/board/content/**"/>		
 			<beans:bean class="com.spring.mvc.board.commons.interceptor.BoardInterceptor" />
+		</interceptor>
+		<!-- <interceptor>
+			<mapping path="/**"/>		
+			<beans:bean class="com.spring.mvc.board.commons.interceptor.AutoLoginInterceptor" />
+		</interceptor> -->
+		
+		<!-- 미리 등록한 인터셉터의 빈을 주입하는 방식 -->
+		<interceptor>
+			<mapping path="/"/>
+			<beans:ref bean="autoLogin" />
 		</interceptor>
 		
 	</interceptors>

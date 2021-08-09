@@ -1,5 +1,7 @@
 package com.spring.mvc.user.service;
 
+import java.util.Date;
+
 import com.spring.mvc.user.model.UserVO;
 
 public interface IUserService {
@@ -17,4 +19,9 @@ public interface IUserService {
 		//회웥 탈퇴
 		void delete(String account);
 		
+		//자동로그인 추가 정보 저장
+		void keepLogin(String sessionId, Date limitTime, String account);
+		
+		//세션아이디를 통해 회원 정보 가져오기
+		UserVO getUserWithSessionId(String sessionId);
 }

@@ -15,6 +15,15 @@ CREATE TABLE mvc_user(
 );
  */
 
+/*
+-- 자동 로그인 관련 컬럼 추가
+ALTER TABLE mvc_user
+ADD session_id  VARCHAR2(80)
+DEFAULT 'none' NOT NULL;
+ALTER TABLE mvc_user
+ADD limit_time  DATE;
+ */
+
 @Getter
 @Setter
 @ToString
@@ -23,4 +32,9 @@ public class UserVO {
 	private String password;
 	private String name;
 	private Timestamp regDate;
+	private String sessionId;
+	private Timestamp limitTime;
+	
+	//자동 로그인 체크 여부
+	private boolean autoLogin;
 }

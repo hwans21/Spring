@@ -84,15 +84,22 @@
 			<artifactId>spring-test</artifactId>
 			<version>${org.springframework-version}</version>
 			<scope>test</scope>
-		</dependency> 
-		
-		<!-- jackson-databind : 데이터를 JSON형태로 파싱해주는 라이브러리-->
-		<dependency>
-		    <groupId>com.fasterxml.jackson.core</groupId>
-		    <artifactId>jackson-databind</artifactId>
-		    <version>2.10.0</version>
 		</dependency>
-				
+
+		<!-- jackson-databind : 데이터를 JSON형태로 파싱해주는 라이브러리 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.10.0</version>
+		</dependency>
+
+		<!-- spring-security 모듈 -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
 
 
 		<!-- AspectJ -->
