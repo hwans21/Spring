@@ -132,8 +132,9 @@ public class UserController {
 			//session.invalidate();
 			session.removeAttribute("login");
 			if(loginCookie != null) {
-				loginCookie.setMaxAge(0);
 				loginCookie.setValue(null);
+				loginCookie.setPath("/");
+				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
 			}
 			ra.addFlashAttribute("msg","logout");
