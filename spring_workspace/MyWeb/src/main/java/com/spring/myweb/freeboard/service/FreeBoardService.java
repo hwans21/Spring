@@ -35,7 +35,7 @@ public class FreeBoardService implements IFreeBoardService {
 	@Override
 	public FreeBoardVO getContent(int bno) {
 		// TODO Auto-generated method stub
-		return null;
+		return mapper.getContent(bno);
 	}
 
 	@Override

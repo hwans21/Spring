@@ -43,7 +43,7 @@
                         	<c:forEach var="art" items="${list }">
                         		<tr>
 	                                <td>${art.bno }</td>
-	                                <td><a href="<c:url value='freeBoard/freeDetial?bno=${art.bno}'/>">${art.title }</a></td>
+	                                <td><a href="<c:url value='/freeBoard/freeDetail?bno=${art.bno}'/>">${art.title }</a></td>
 	                                <td>${art.writer }</td>
 	                                <td>${art.regdate }</td>
 	                                <td>${art.updatedate }</td>
