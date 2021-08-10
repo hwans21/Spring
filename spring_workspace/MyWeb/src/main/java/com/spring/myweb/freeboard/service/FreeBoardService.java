@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.spring.myweb.command.FreeBoardVO;
 import com.spring.myweb.freeboard.mapper.IFreeBoardMapper;
 
-@Service("boardService")
+@Service
 public class FreeBoardService implements IFreeBoardService {
 
 	@Autowired

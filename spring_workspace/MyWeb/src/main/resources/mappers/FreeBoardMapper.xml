@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  
-<mapper namespace="com.spring.myweb.Freeboard.mapper.IFreeBoardMapper">
+<mapper namespace="com.spring.myweb.freeboard.mapper.IFreeBoardMapper">
 	<!-- 글 등록 -->
 	<insert id="regist">
 		INSERT INTO freeboard(bno,writer,title,content) 

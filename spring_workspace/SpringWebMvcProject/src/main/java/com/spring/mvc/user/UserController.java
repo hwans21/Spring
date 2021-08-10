@@ -134,7 +134,7 @@ public class UserController {
 			session.removeAttribute("login");
 			if(loginCookie != null) {
 				loginCookie.setValue(null);
-				loginCookie.setPath("/");
+				loginCookie.setPath("/"); //쿠키 생성시 유효 url을 지정한 경우, 삭제할 때도 명시해 줍니다.
 				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
 				System.out.println(vo.getAccount());

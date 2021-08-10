@@ -1,8 +1,9 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    <%@ include file="../include/header.jsp" %>
+   <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
    
+    <%@ include file="../include/header.jsp" %>
     <section>
         <div class="container-fluid">
             <div class="row">
@@ -67,7 +68,7 @@
                         <li><a href="#">5</a></li>
                         <li><a href="#">다음</a></li>
                     </ul>
-                    <button type="button" class="btn btn-info">글쓰기</button>
+                    <button type="button" class="btn btn-info" onclick="location.href='<c:url value="/freeBoard/freeRegist" />'">글쓰기</button>
                     </div>
 		    </form>
 
@@ -75,6 +76,7 @@
             </div>
         </div>
 	</section>
+	
 	<%@ include file="../include/footer.jsp" %>
 
 

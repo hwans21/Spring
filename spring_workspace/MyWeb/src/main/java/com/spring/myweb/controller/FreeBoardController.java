@@ -15,7 +15,6 @@ import com.spring.myweb.freeboard.service.IFreeBoardService;
 public class FreeBoardController {
 	
 	@Autowired
-	@Qualifier("boardService")
 	private IFreeBoardService service;
 	
 	//목록 화면
