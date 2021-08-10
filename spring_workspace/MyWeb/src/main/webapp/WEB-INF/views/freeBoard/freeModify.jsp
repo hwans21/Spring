@@ -48,9 +48,8 @@
                 "content":$('button[name="content"]').val(),
             }
             //start JQuery
-            $(function() {
-                
-            }); //end JQuery
+           
+           
 
         </script>
       <%@ include file="../include/footer.jsp" %>

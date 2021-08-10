@@ -64,6 +64,7 @@ public class FreeboardMapperTest {
 	public void deleteTest() {
 		//300번 글 삭제 테스트
 		mapper.delete(300);
+		
 		mapper.getList().forEach(vo -> System.out.println(vo));
 	}
 }

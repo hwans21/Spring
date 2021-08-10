@@ -17,7 +17,7 @@ public class FreeBoardService implements IFreeBoardService {
 	@Override
 	public void regist(FreeBoardVO vo) {
 		// TODO Auto-generated method stub
-		
+		mapper.regist(vo);
 	}
 
 	@Override

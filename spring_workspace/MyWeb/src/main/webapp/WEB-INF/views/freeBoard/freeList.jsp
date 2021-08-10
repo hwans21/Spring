@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-   
+   <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <%@ include file="../include/header.jsp" %>
     <section>
         <div class="container-fluid">
@@ -45,8 +45,8 @@
 	                                <td>${art.bno }</td>
 	                                <td><a href="<c:url value='/freeBoard/freeDetail?bno=${art.bno}'/>">${art.title }</a></td>
 	                                <td>${art.writer }</td>
-	                                <td>${art.regdate }</td>
-	                                <td>${art.updatedate }</td>
+	                                <td><fmt:formatDate value="${art.regdate }" pattern="YY.MM.dd HH:mm"/></td>
+	                                <td><fmt:formatDate value="${art.updatedate }" pattern="YY.MM.dd HH:mm"/></td>
                             	</tr>	
                         	</c:forEach>
                            
