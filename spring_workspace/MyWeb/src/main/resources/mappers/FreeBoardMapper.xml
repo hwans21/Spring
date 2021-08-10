@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ 
+<mapper namespace="com.spring.myweb.Freeboard.mapper.IFreeBoardMapper">
+	<!-- 글 등록 -->
+	<insert id="regist">
+		INSERT INTO freeboard(bno,writer,title,content) 
+		VALUES(freeboard_seq.NEXTVAL, #{writer},#{title},#{content})
+	</insert>
+	<!-- 글 목록 -->
+	<select id="getList" resultType="com.spring.myweb.command.FreeBoardVO">
+		SELECT * FROM freeboard
+		ORDER BY bno DESC
+	</select>
+	
+	<!-- 총 게시물 수 -->
+	<select id="getTotal" resultType="int">
+		SELECT COUNT(*) FROM freeboard
+	</select>
+	<!-- 상세보기 -->
+	<select id="getContent" resultType="com.spring.myweb.command.FreeBoardVO">
+		SELECT * FROM freeboard
+		WHERE bno = #{bno}
+	</select>
+	<!-- 수정 -->
+	<update id="update">
+		UPDATE freeboard 
+		SET title = #{title}, content=#{content}, updatedate=SYSDATE
+		WHERE bno = #{bno}
+		
+	</update>
+	<!-- 삭제 -->
+	<delete id="delete">
+		DELETE FROM freeboard
+		WHERE bno = #{bno}
+	</delete>
+</mapper>
