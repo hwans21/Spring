@@ -117,11 +117,11 @@ public class UserController {
 	// 로그아웃 요청 처리
 	@GetMapping("/logout")
 //	public String logout(HttpSession session, RedirectAttributes ra) {
-	public void logout(HttpSession session, RedirectAttributes ra,
+	public ModelAndView logout(HttpSession session, RedirectAttributes ra,
 							HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		Cookie loginCookie = WebUtils.getCookie(request, "loginCookie");
-		
+		UserVO vo = (UserVO) session.getAttribute("login");
 		System.out.println("/user/logout: GET");
 		if(loginCookie != null) {
 			System.out.printf("%s : %s\n",loginCookie.getName(), loginCookie.getValue());
@@ -130,16 +130,19 @@ public class UserController {
 		
 		if(session.getAttribute("login") != null) {
 			//session.invalidate();
+			
 			session.removeAttribute("login");
 			if(loginCookie != null) {
 				loginCookie.setValue(null);
 				loginCookie.setPath("/");
 				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
+				System.out.println(vo.getAccount());
+				service.keepLogin("none", new Date(), vo.getAccount());
 			}
 			ra.addFlashAttribute("msg","logout");
 		}
-		response.sendRedirect("/");
+		return new ModelAndView("redirect:/");
 	}
 	
 }
