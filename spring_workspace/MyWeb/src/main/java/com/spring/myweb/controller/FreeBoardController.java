@@ -75,9 +75,13 @@ public class FreeBoardController {
 	
 	//글 삭제요청
 	@PostMapping("/freeDelete")
-	public String freeDelete(FreeBoardVO vo) {
+//	public String freeDelete(@RequestParam int bno, RedirectAttributes ra) {
+	public String freeDelete(FreeBoardVO vo, RedirectAttributes ra) {
 		System.out.println("/freeBoard/freeDelete: POST");
+		
+//		service.delete(bno);
 		service.delete(vo.getBno());
+		ra.addFlashAttribute("msg","게시글이 정상 삭제되었습니다.");
 		return "redirect:/freeBoard/freeList";
 	}
 }
