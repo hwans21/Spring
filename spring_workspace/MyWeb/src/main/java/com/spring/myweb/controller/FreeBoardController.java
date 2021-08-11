@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.myweb.command.FreeBoardVO;
 import com.spring.myweb.freeboard.service.IFreeBoardService;
@@ -45,12 +46,15 @@ public class FreeBoardController {
 		System.out.println("/freeBoard/freeRegist: GET");
 	}
 	
-	// 글 등록요청
-	@PostMapping("/freeRegist")
-	public String freeRegist(FreeBoardVO vo) {
+	// 글 등록처리
+	@PostMapping("/registForm")
+	public String registForm(FreeBoardVO vo, RedirectAttributes ra) {
 		System.out.println("/freeBoard/freeRegist: POST");
 		service.regist(vo);
-		return "redirect:/freeBoard/freeList";
+		
+		//등록 성공 여부를 1회용으로 전달하기 위한 ra객체의 메서드
+		ra.addFlashAttribute("msg","정상 등록 처리되었습니다.");
+		return "redirect:/freeBoard/freeList"; // 등록 후에 글 목록 요청 리다이렉트
 	}
 	
 	//글 수정 페이지 요청
