@@ -79,6 +79,6 @@
 	
 	<%@ include file="../include/footer.jsp" %>
 	
-	
+	<!-- 메시지 출력 미완성 -->
 
 

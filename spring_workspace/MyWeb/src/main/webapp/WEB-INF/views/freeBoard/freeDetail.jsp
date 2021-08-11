@@ -34,7 +34,7 @@
                                 <textarea class="form-control" rows="10" name='content' readonly>${art.content }</textarea>
                             </div>
 
-                            <button type="button" class="btn btn-primary"  onclick="location.href='<c:url value="/freeBoard/freeModify?bno=${art.bno} " />'">변경</button>
+                            <button type="button" class="btn btn-primary"  onclick="location.href='<c:url value="/freeBoard/freeModify?bno=${art.bno}" />'">변경</button>
                             <button type="button" class="btn btn-dark" onclick="location.href='<c:url value="/freeBoard/freeList"/>'">목록</button>
                     </form>
                 </div>
@@ -114,3 +114,9 @@
 		</div>
 	</div>
 <%@ include file="../include/footer.jsp" %>
+<script>
+	const msg = "${msg}"
+    if(msg === '게시글 수정이 정상 처리되었습니다.'){
+        alert(msg);
+    }
+</script>

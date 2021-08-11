@@ -32,13 +32,6 @@ public class FreeBoardController {
 		return "freeBoard/freeList";
 	}
 	
-	//글 상세요청
-	@GetMapping("/freeDetail")
-	public void freeDetail(@RequestParam("bno") int bno, Model model) {
-		System.out.println("/freeBoard/freeDetail: GET");
-		model.addAttribute("art", service.getContent(bno));
-		
-	}
 	
 	// 글 등록화면요청
 	@GetMapping("/freeRegist")
@@ -57,16 +50,34 @@ public class FreeBoardController {
 		return "redirect:/freeBoard/freeList"; // 등록 후에 글 목록 요청 리다이렉트
 	}
 	
+	//글 상세보기요청
+	@GetMapping("/freeDetail")
+	public void getContent(@RequestParam int bno, Model model) {
+		System.out.println("/freeBoard/freeDetail: GET");
+		model.addAttribute("art", service.getContent(bno));
+		
+	}
+	
 	//글 수정 페이지 요청
 	@GetMapping("/freeModify")
-	public void freeModify(@RequestParam("bno") int bno, Model model) {
+	public void freeModify(@RequestParam int bno, Model model) {
 		System.out.println("/freeBoard/freeModify: GET");
 		model.addAttribute("art", service.getContent(bno));
 	}
 	
+	@PostMapping("/freeUpdate")
+	public String freeUpdate(FreeBoardVO vo, RedirectAttributes ra) {
+		System.out.println("/freeBoard/freeUpdate: POST");
+		service.update(vo);
+		ra.addFlashAttribute("msg", "게시글 수정이 정상 처리되었습니다.");
+		return "redirect:/freeBoard/freeDetail?bno="+vo.getBno();
+	}
+	
 	//글 삭제요청
 	@PostMapping("/freeDelete")
-	public void freeDelete() {
+	public String freeDelete(FreeBoardVO vo) {
 		System.out.println("/freeBoard/freeDelete: POST");
+		service.delete(vo.getBno());
+		return "redirect:/freeBoard/freeList";
 	}
 }
