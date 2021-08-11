@@ -17,13 +17,13 @@
                 <!--form select를 가져온다 -->
                 <form>
                     <div class="search-wrap">
-                        <button type="button" class="btn btn-info search-btn">검색</button>
-                        <input type="text" class="form-control search-input">
+                        <button id="searchBtn" type="button" class="btn btn-info search-btn">검색</button>
+                        <input id="keyword" type="text" class="form-control search-input" value="${pc.page.keyword }">
                         <select class="form-control search-select">
-                            <option>제목</option>
-                            <option>내용</option>
-                            <option>작성자</option>
-                            <option>제목+내용</option>
+                            <option value="title" ${pc.page.condition=='title'? 'selected':'' }>제목</option>
+                            <option value="content" ${pc.page.condition=='content'? 'selected':'' }>내용</option>
+                            <option value="writer" ${pc.page.condition=='writer'? 'selected':'' }>작성자</option>
+                            <option value="titleContent" ${pc.page.condition=='titleContent'? 'selected':'' }>제목+내용</option>
                         </select>
                     </div>
                 </form>
@@ -61,19 +61,22 @@
 
 
                 <!--페이지 네이션을 가져옴-->
-                <form>
+                <form id="pageForm" action="<c:url value='/freeBoard/freeList' />" method="get">
+                    <input type="hidden" name="pageNum" value="${pc.page.pageNum }">
+                    <input type="hidden" name="keyword" value="${pc.page.keyword }">
+                    <input type="hidden" name="condition" value="${pc.page.condition }">
                     <div class="text-center">
                         <hr>
                         <ul class="pagination pagination-sm">
                         	<c:if test="${pc.prev }">
-	                            <li><a href="#">이전</a></li>
+	                            <li><a id="prev" href="#">이전</a></li>
                         	</c:if>
 		                        <c:forEach var="i" begin="${pc.begin }" end="${pc.end }" step="1">
 		                        	<c:if test="${pc.page.pageNum == i}">
-			                        	<li class="active"><a href="#">${i }</a></li>
+			                        	<li class="active"><a class="num" href="#">${i }</a></li>
 		                        	</c:if>
 		                        	<c:if test="${pc.page.pageNum != i }">
-		                        		<li><a href="#">${i }</a></li>
+		                        		<li><a class="num" href="#" >${i }</a></li>
 		                        	</c:if>
 		                        </c:forEach>
                             <!-- <li class="active"><a href="#">1</a></li>
@@ -82,7 +85,7 @@
                             <li><a href="#">4</a></li>
                             <li><a href="#">5</a></li> -->
                             <c:if test="${pc.next }">
-	                            <li><a href="#">다음</a></li>                    
+	                            <li><a id="next" href="#">다음</a></li>                    
                             </c:if>
                         
                         </ul>
@@ -102,4 +105,39 @@
     if(msg !== ''){
         alert(msg);
     }
+    $(function() {
+        $('#pageForm a').click(function(e){
+            e.preventDefault();
+        });
+        $('#prev').click(function(){
+        	$('input[name=pageNum]').attr('value', ${pc.begin-1 });
+        	$('input[name=condition]').attr('value', $('select').val());
+        	$('input[name=keyword]').attr('value', $('#keyword').val());
+            $('#pageForm').submit();
+        });
+        $('#next').click(function(){
+        	$('input[name=pageNum]').attr('value', ${pc.end+1 });
+        	$('input[name=condition]').attr('value', $('select').val());
+        	$('input[name=keyword]').attr('value', $('#keyword').val());
+            $('#pageForm').submit();
+        });
+        $('.num').click(function(){
+            $('input[name=pageNum]').attr('value', $(this).html());
+            $('input[name=condition]').attr('value', $('select').val());
+        	$('input[name=keyword]').attr('value', $('#keyword').val());
+            $('#pageForm').submit();
+        });
+        $('#searchBtn').click(function() {
+        	$('input[name=pageNum]').attr('value', 1);
+            $('input[name=condition]').attr('value', $('select').val());
+        	$('input[name=keyword]').attr('value', $('#keyword').val());
+        	$('#pageForm').submit();
+        });
+        $('#keyword').keyup(function(key) {
+        	if(key.keyCode === 13){
+        		$('#searchBtn').click();
+        	}
+        });
+
+    })
 </script>

@@ -5,7 +5,23 @@
  
  
 <mapper namespace="com.spring.myweb.freeboard.mapper.IFreeBoardMapper">
-
+	<sql id="freeCondition">
+		<if test="condition == 'title'">
+			WHERE title LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'writer'">
+			WHERE writer LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'content'">
+			WHERE content LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test="condition == 'titleContent'">
+			WHERE title LIKE '%'||#{keyword}||'%'
+			OR content LIKE '%'||#{keyword}||'%'
+		</if>
+	</sql>
+	
+	
 	<!-- 글 등록 -->
 	<insert id="regist">
 		INSERT INTO freeboard(bno,writer,title,content) 
@@ -18,8 +34,10 @@
 			SELECT ROWNUM AS rn , t.* FROM
 			(
 				SELECT * FROM freeboard
+				
+				<include refid="freeCondition"></include>
 				ORDER BY bno DESC
-			
+				
 			) t
 		)
 		<!-- 부등호를 인식시키기 위함 -->
@@ -34,6 +52,7 @@
 	<select id="getTotal" resultType="int">
 		SELECT COUNT(*) 
 		FROM freeboard
+		<include refid="freeCondition"></include>
 	</select>
 	<!-- 상세보기 -->
 	<select id="getContent" resultType="com.spring.myweb.command.FreeBoardVO">
