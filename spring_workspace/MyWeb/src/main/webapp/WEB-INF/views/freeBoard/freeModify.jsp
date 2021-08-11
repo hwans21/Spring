@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group">
                         <label>작성자</label>
-                        <input class="form-control" name='writer' value="${art.writer }">
+                        <input class="form-control" name='writer' value="${art.writer }" readonly>
                     </div>
                     <div class="form-group">
                         <label>제목</label>
@@ -85,6 +85,11 @@
        $('#deleteBtn').click(function(){
            if(confirm('정말로 삭제하시겠습니까?')){
                $('#formId').attr("action","<c:url value='/freeBoard/freeDelete'/>")
+               /*바닐라문법
+               document.getE~id('formId').action="~~~"
+               document.getE~id('formId').setAttribute('action','~~~~');
+
+               */
                $('#formId').submit();
            }
        });

@@ -69,7 +69,7 @@ public class FreeBoardController {
 	public String freeUpdate(FreeBoardVO vo, RedirectAttributes ra) {
 		System.out.println("/freeBoard/freeUpdate: POST");
 		service.update(vo);
-		ra.addFlashAttribute("msg", "게시글 수정이 정상 처리되었습니다.");
+		ra.addFlashAttribute("msg", "updateSuccess");
 		return "redirect:/freeBoard/freeDetail?bno="+vo.getBno();
 	}
 	

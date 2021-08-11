@@ -116,7 +116,7 @@
 <%@ include file="../include/footer.jsp" %>
 <script>
 	const msg = "${msg}"
-    if(msg === '게시글 수정이 정상 처리되었습니다.'){
-        alert(msg);
+    if(msg === 'updateSuccess'){
+        alert("게시글 수정이 정상 처리되었습니다.");
     }
 </script>
