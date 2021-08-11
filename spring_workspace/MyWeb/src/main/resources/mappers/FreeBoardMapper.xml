@@ -5,6 +5,7 @@
  
  
 <mapper namespace="com.spring.myweb.freeboard.mapper.IFreeBoardMapper">
+
 	<!-- 글 등록 -->
 	<insert id="regist">
 		INSERT INTO freeboard(bno,writer,title,content) 
@@ -12,8 +13,20 @@
 	</insert>
 	<!-- 글 목록 -->
 	<select id="getList" resultType="com.spring.myweb.command.FreeBoardVO">
-		SELECT * FROM freeboard
-		ORDER BY bno DESC
+		SELECT * FROM
+		(
+			SELECT ROWNUM AS rn , t.* FROM
+			(
+				SELECT * FROM freeboard
+				ORDER BY bno DESC
+			
+			) t
+		)
+		<![CDATA[ 
+		WHERE rn > ((#{pageNum}-1) * #{countPerPage})
+		AND rn <= #{pageNum} * #{countPerPage}
+		]]>
+		
 	</select>
 	
 	<!-- 총 게시물 수 -->

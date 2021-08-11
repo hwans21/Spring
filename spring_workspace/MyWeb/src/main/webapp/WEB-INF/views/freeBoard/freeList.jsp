@@ -66,12 +66,16 @@
                         <hr>
                         <ul class="pagination pagination-sm">
                             <li><a href="#">이전</a></li>
+                        <c:forEach var="i" begin="${pc.begin }" end="${pc.end }" step="1">
                             <li class="active"><a href="#">1</a></li>
                             <li><a href="#">2</a></li>
                             <li><a href="#">3</a></li>
                             <li><a href="#">4</a></li>
                             <li><a href="#">5</a></li>
+                        </c:forEach>
+                            
                             <li><a href="#">다음</a></li>
+                        
                         </ul>
                         <button type="button" class="btn btn-info"
                             onclick="location.href='<c:url value="/freeBoard/freeRegist" />'">글쓰기</button>
@@ -86,7 +90,7 @@
 <%@ include file="../include/footer.jsp" %>
 <script>
     const msg = "${msg}"
-    if(msg === '게시글이 정상 삭제되었습니다.'){
+    if(msg !== ''){
         alert(msg);
     }
 </script>

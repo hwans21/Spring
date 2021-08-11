@@ -1,4 +1,4 @@
-package com.spring.myweb;
+package com.spring.myweb.controller;
 
 import java.util.Locale;
 

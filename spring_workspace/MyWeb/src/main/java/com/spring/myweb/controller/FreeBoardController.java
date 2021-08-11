@@ -2,20 +2,18 @@ package com.spring.myweb.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.spring.myweb.command.FreeBoardVO;
 import com.spring.myweb.freeboard.service.IFreeBoardService;
-
-import oracle.jdbc.proxy.annotation.Post;
+import com.spring.myweb.util.PageCreator;
+import com.spring.myweb.util.PageVO;
 
 @Controller
 @RequestMapping("/freeBoard")
@@ -26,8 +24,12 @@ public class FreeBoardController {
 	
 	//목록 화면
 	@GetMapping("/freeList")
-	public String freeList(Model model) {
+	public String freeList(Model model, PageVO page) {
 		System.out.println("/freeBoard/freeList: GET");
+		PageCreator pc = new PageCreator();
+		pc.setPage(page);
+		pc.setArticleTotal(service.getTotal());
+		model.addAttribute("pc", pc);		
 		model.addAttribute("list", service.getList());
 		return "freeBoard/freeList";
 	}
