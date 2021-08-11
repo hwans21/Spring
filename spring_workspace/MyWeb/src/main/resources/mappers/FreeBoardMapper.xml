@@ -22,6 +22,7 @@
 			
 			) t
 		)
+		<!-- 부등호를 인식시키기 위함 -->
 		<![CDATA[ 
 		WHERE rn > ((#{pageNum}-1) * #{countPerPage})
 		AND rn <= #{pageNum} * #{countPerPage}
@@ -31,7 +32,8 @@
 	
 	<!-- 총 게시물 수 -->
 	<select id="getTotal" resultType="int">
-		SELECT COUNT(*) FROM freeboard
+		SELECT COUNT(*) 
+		FROM freeboard
 	</select>
 	<!-- 상세보기 -->
 	<select id="getContent" resultType="com.spring.myweb.command.FreeBoardVO">

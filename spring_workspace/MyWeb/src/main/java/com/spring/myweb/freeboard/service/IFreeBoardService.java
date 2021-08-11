@@ -3,6 +3,7 @@ package com.spring.myweb.freeboard.service;
 import java.util.List;
 
 import com.spring.myweb.command.FreeBoardVO;
+import com.spring.myweb.util.PageVO;
 
 
 public interface IFreeBoardService {
@@ -11,10 +12,10 @@ public interface IFreeBoardService {
 	void regist(FreeBoardVO vo);
 	
 	// 글 목록
-	List<FreeBoardVO> getList();
+	List<FreeBoardVO> getList(PageVO vo);
 	
 	// 총 게시물 수
-	int getTotal();
+	int getTotal(PageVO vo);
 	
 	// 상세보기
 	FreeBoardVO getContent(int bno);

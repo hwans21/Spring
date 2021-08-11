@@ -65,16 +65,25 @@
                     <div class="text-center">
                         <hr>
                         <ul class="pagination pagination-sm">
-                            <li><a href="#">이전</a></li>
-                        <c:forEach var="i" begin="${pc.begin }" end="${pc.end }" step="1">
-                            <li class="active"><a href="#">1</a></li>
+                        	<c:if test="${pc.prev }">
+	                            <li><a href="#">이전</a></li>
+                        	</c:if>
+		                        <c:forEach var="i" begin="${pc.begin }" end="${pc.end }" step="1">
+		                        	<c:if test="${pc.page.pageNum == i}">
+			                        	<li class="active"><a href="#">${i }</a></li>
+		                        	</c:if>
+		                        	<c:if test="${pc.page.pageNum != i }">
+		                        		<li><a href="#">${i }</a></li>
+		                        	</c:if>
+		                        </c:forEach>
+                            <!-- <li class="active"><a href="#">1</a></li>
                             <li><a href="#">2</a></li>
                             <li><a href="#">3</a></li>
                             <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                        </c:forEach>
-                            
-                            <li><a href="#">다음</a></li>
+                            <li><a href="#">5</a></li> -->
+                            <c:if test="${pc.next }">
+	                            <li><a href="#">다음</a></li>                    
+                            </c:if>
                         
                         </ul>
                         <button type="button" class="btn btn-info"

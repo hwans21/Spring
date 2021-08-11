@@ -26,11 +26,14 @@ public class PageCreator {
 		this.end = (int) Math.ceil((double) this.page.getPageNum()/displayNum)*displayNum;
 		this.begin = this.end - displayNum + 1;
 		this.prev = (this.begin == 1)? false:true;
-		if((this.end * this.page.getCountPerPage()) > this.articleTotal) {
+		this.next = ((this.end * this.page.getCountPerPage()) > this.articleTotal)? false:true;
+		if(!next) {
 			this.end = (int) Math.ceil((double) this.articleTotal/this.page.getCountPerPage());
 		}
 	}
 	
+	// 컨트롤러가 총 게시물의 개수를 PageCreator에게 전닿란 직후에
+	// 페이징 버튼 알고리즘이 돌아갈 수 있도록 setter를 커스텀
 	public void setArticleTotal(int total) {
 		this.articleTotal= total;
 		calcPaging();

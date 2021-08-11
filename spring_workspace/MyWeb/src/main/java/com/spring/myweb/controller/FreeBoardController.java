@@ -28,9 +28,9 @@ public class FreeBoardController {
 		System.out.println("/freeBoard/freeList: GET");
 		PageCreator pc = new PageCreator();
 		pc.setPage(page);
-		pc.setArticleTotal(service.getTotal());
+		pc.setArticleTotal(service.getTotal(page));
 		model.addAttribute("pc", pc);		
-		model.addAttribute("list", service.getList());
+		model.addAttribute("list", service.getList(page));
 		return "freeBoard/freeList";
 	}
 	
