@@ -65,7 +65,10 @@
                                     </form>
 									
                                     <!--여기에접근 반복-->
-                                    <div id="replyList"></div>
+                                    <div id="replyList">
+                                    
+                                    </div>
+                                    <button class="form-control" id="moreList">더보기(페이징)</button>
                                         <!-- <div class='reply-wrap'>
                                             <div class='reply-image'>
                                                 <img src='../resources/img/profile.png'>
@@ -161,7 +164,7 @@
                     $('#reply').val('');
                     $('#replyId').val('');
                     $('#replyPw').val('');
-                    getList(true); // 등록 성공 후 댓글 목록 함수를 호출해서 비동기식으로 목록표현.  
+                    getList(1, true); // 등록 성공 후 댓글 목록 함수를 호출해서 비동기식으로 목록표현.  
                 },
                 error: function () {
                     alert('등록에 실패했습니다. 관리자에게 문의하세요');
@@ -169,40 +172,70 @@
             }); //댓글 등록 비동기 통신 끝
         }); //댓글 등록 이벤트 끝
 
+        //더보기 버튼 처리(클릭시 전역변수 페이지번호에 +1값을 전달)
+        $('#moreList').click(function(){
+        			
+        	
+        	page = page+1;
+        	//더보기잖아요. 누적해야되지 않을까요
+        	//1페이지의 댓글 내용 밑에다가 2페이지를 줘야지
+        	//1페이지를 없애고 2페이지를 보여주는 것 좀 그렇지 않나요?
+        	getList(page,false);
+        });
+        
         //목록요청
+        let page = 1; // 페이지 번호
         let strAdd = ""; //화면에 그려넣을 태그를 문자열의 형태로 추가할 변수
-        getList(true); // 상세화면 진입시 리스트 목록을 가져옴
+        getList(1 , true); // 상세화면 진입시 리스트 목록을 가져옴
         
         
       //화면을 리셋할 것인지의 여부를 bool타입의 reset변수로 받겠다.
       //(댓글이 계속 밑에 쌓여요 페이지가 그대로 머무니까)
-        function getList(reset) { 
+        function getList(pageNum, reset) { 
             const bno = '${art.bno}'; //게시글 번호
             //getJSON 함수를 통해 JSON형식의 파일을 읽어올 수 있다.
             //get방식의 요청을 통해 서버로부터 받은 JSON 데이터를 로드한다.
             //$.getJSON(url,[DATA],[통신 성공 여부])
             $.getJSON(
-                "<c:url value='/reply/getList/${art.bno}' />",
+                "<c:url value='/reply/getList/${art.bno}/' />" + pageNum,
                 function (data) {
                     console.log(data);
+                    
+                    let total = data.total; //총 댓글수
+                    let list = data.list; // 댓글 리스트
+                    
+                    // 페이지 번호*데이터 수가 전체 게시글 개수보다 작으면 더보기 버튼을 없애자.
+                    if(total <= page * 10) {
+                    	$('#moreList').css('display','none' );
+                    	
+                    } else{
+                    	$('#moreList').css('display','block');
+                    }
+                    
                     //insert, update, delete작업 뒤에는 
                     // 댓글을 누적하고 있는 strAdd변수를 초기화
                     if(reset === true){
                     	strAdd = '';
                     }
-                    for(let i=0;i<data.length;i++){
+                    
+                    //응답데이터의 길이가 0보다 작으면 함수를 종료하자.
+                    if(list.length <=0){
+                    	return;
+                    }
+                    
+                    for(let i=0;i<list.length;i++){
                         strAdd += "<div class='reply-wrap' style='display:none;'>";
                         strAdd += "<div class='reply-image'>";
                         strAdd += "<img src='../resources/img/profile.png'>";
                         strAdd += "</div>";
                         strAdd += "<div class='reply-content'>";
                         strAdd += "<div class='reply-group'>";
-                        strAdd += "<strong class='left'>"+ data[i].replyId +"</strong>"; 
-                		strAdd += "<small class='left'>"+ data[i].replyDate +"</small>"
-                        strAdd += "<a href='"+ data[i].rno +"' class='right replyModify'><span class='glyphicon glyphicon-pencil'></span>수정</a>";
-                        strAdd += "<a href='"+ data[i].rno +"' class='right replyDelete'><span class='glyphicon glyphicon-remove'></span>삭제</a>";
+                        strAdd += "<strong class='left'>"+ list[i].replyId +"</strong>"; 
+                		strAdd += "<small class='left'>"+ list[i].replyDate +"</small>"
+                        strAdd += "<a href='"+ list[i].rno +"' class='right replyModify'><span class='glyphicon glyphicon-pencil'></span>수정</a>";
+                        strAdd += "<a href='"+ list[i].rno +"' class='right replyDelete'><span class='glyphicon glyphicon-remove'></span>삭제</a>";
                         strAdd += "</div>";
-                        strAdd += "<p class='clearfix'>"+ data[i].reply +"</p>";
+                        strAdd += "<p class='clearfix'>"+ list[i].reply +"</p>";
                         strAdd += "</div>";
                         strAdd += "</div>";
                     }
@@ -213,5 +246,6 @@
 
             ); //end getJSON
         } //end getlist
+        
     }); //end jquery
 </script>

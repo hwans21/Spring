@@ -15,11 +15,32 @@
   		INSERT INTO freereply(rno, bno,reply,reply_id,reply_pw)
   		VALUES(freereply_seq.NEXTVAL,#{bno},#{reply},#{replyId},#{replyPw})
   	</insert>
-  	
+  	<!-- 
   	<select id="getList" resultMap="replyMap">
   		SELECT * FROM freereply
   		WHERE bno = #{bno}
   		ORDER BY rno DESC
   	</select>
-  	
+  	 -->
+  	 <select id="getList" resultMap="replyMap">
+	  	 SELECT * FROM
+	  	 (
+		  	 SELECT ROWNUM as rn, t.* FROM
+		  	 (
+		  	 	SELECT * FROM freereply
+		  		WHERE bno = #{bno}
+		  		ORDER BY rno DESC
+		  	 ) t
+	  	 )
+	  	 <![CDATA[
+	  	 WHERE rn > (#{paging.pageNum} - 1) * #{paging.countPerPage}
+	  	 AND rn <= #{paging.pageNum} * #{paging.countPerPage}
+	  	 ]]>
+  	 	
+  	 </select>
+  	 
+  	 <select id="getTotal" resultType="int">
+  	 	SELECT COUNT(*) FROM freereply
+  	 	WHERE bno = #{bno}
+  	 </select>
   </mapper>
