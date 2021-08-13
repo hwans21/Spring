@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.myweb.command.ReplyVO;
-import com.spring.myweb.freeboard.mapper.IFreeBoardMapper;
 import com.spring.myweb.reply.mapper.IReplyMapper;
 import com.spring.myweb.util.PageVO;
 
@@ -48,13 +47,13 @@ public class ReplyService implements IReplyService {
 	@Override
 	public int pwCheck(ReplyVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return mapper.pwCheck(vo);
 	}
 
 	@Override
 	public void update(ReplyVO vo) {
 		// TODO Auto-generated method stub
-
+		mapper.update(vo);
 	}
 
 	@Override

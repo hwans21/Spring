@@ -43,4 +43,16 @@
   	 	SELECT COUNT(*) FROM freereply
   	 	WHERE bno = #{bno}
   	 </select>
+  	 
+  	 <select id="pwCheck" resultType="int">
+  	 	SELECT COUNT(*) FROM freereply
+  	 	WHERE rno = #{rno} AND reply_pw = #{replyPw}
+  	 </select>
+  	 
+  	 <update id="update">
+  	 	UPDATE freereply SET 
+  	 		reply = #{reply}
+  	 		update_date = SYSDATE
+  	 	WHERE rno = #{rno}
+  	 </update>
   </mapper>

@@ -59,4 +59,14 @@ public class ReplyController {
 		
 		return map;
 	}
+	//수정 요청
+	@PostMapping("/update")
+	public String replyUpdate(@RequestBody ReplyVO vo) {
+		if(service.pwCheck(vo)==1) {
+			service.update(vo);
+			return "";
+		} else {
+			return "pwFail";
+		}
+	}
 }
