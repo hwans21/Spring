@@ -265,6 +265,7 @@
         $('#replyList').on('click', 'a', function(e){
         	e.preventDefault(); //태그의 고유기능을 중지
             // 1. a태그가 두 개(수정, 삭제)이므로 버튼부터 확인.
+            console.log($(this).closest('.reply-content').children('p').html());
             const rno = $(this).attr('href');
         	$('#modalRno').val(rno);
             
@@ -273,11 +274,13 @@
             //모달 창 하나를 이용해서 상황에 따라 수정/삭제 모달을 구분하기 위해
             //조건문 작성
             if($(this).hasClass('replyModify')){
+            	
                 //2. 수정버튼을 눌렀으므로 수정 모달 형식으로 변경
                 $('.modal-title').html('댓글 수정');
+                $('#modalReply').val($(this).parent().next().html());
                 $('#modalReply').css('display','inline');
                 $('#modalModBtn').css('display','inline');
-                $('#modalDelBtn').css('display','none'); //수정이므로 삭제버튼은 숨기자.
+                $('#modalDelBtn').css('display','none'); //수정이므로 삭제버	튼은 숨기자.
                 $('#replyModal').modal('show');
             } else {
             	//3. 삭제버튼을 눌렀으므로 삭제 모달 형식으로 변경
@@ -303,7 +306,6 @@
         		4. 업데이트가 진행된 다음에는 modal창의 모든 값을 ''로 처리해서 초기화 시키시고
         		수정된 댓글 내용이 반영될 수 있도록 댓글 목록을 다시 불러오세요
         	*/
-        	
         	const rno = $('#modalRno').val();
         	const reply = $('#modalReply').val();
         	const replyPw = $('#modalPw').val();
@@ -325,8 +327,9 @@
                 success:function(data){
 					if(data === 'pwFail'){
 						alert('비밀번호가 틀렸습니다.');
+						$('#modalPw').val('');
 					} else {
-                        $('#modalRno').val('');
+						alert('정상 수정되었습니다.')
                     	$('#modalReply').val('');
         	            $('#modalPw').val('');
                         $('#replyModal').modal('hide');
