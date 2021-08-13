@@ -38,4 +38,6 @@ public class FreeBoardVO {
 	private String content;
 	private Timestamp regdate;
 	private Timestamp updatedate;
+	private boolean newMark;
+	
 }

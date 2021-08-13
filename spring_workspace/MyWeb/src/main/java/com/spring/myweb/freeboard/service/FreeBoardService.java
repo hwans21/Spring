@@ -1,5 +1,7 @@
 package com.spring.myweb.freeboard.service;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,15 @@ public class FreeBoardService implements IFreeBoardService {
 	@Override
 	public List<FreeBoardVO> getList(PageVO vo) {
 		// TODO Auto-generated method stub
-		return mapper.getList(vo);
+		List<FreeBoardVO> list = mapper.getList(vo);
+		long today = System.currentTimeMillis();
+		
+		for(FreeBoardVO fb : list) {
+			if((today - fb.getRegdate().getTime())/(24*60*60*1000) < 2){
+				fb.setNewMark(true);
+			}
+		}
+		return list;
 	}
 
 	@Override
@@ -51,5 +61,6 @@ public class FreeBoardService implements IFreeBoardService {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }

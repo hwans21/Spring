@@ -48,6 +48,8 @@
 	<!-- 위의 구현체 xml을 빈으로 등록하기 위해서는 타입이 필요하니까 인터페이스를 자동으로 스캔해서 빈으로 등록하기 위한 설정 -->
 	<mybatis-spring:scan
 		base-package="com.spring.myweb.freeboard.mapper" />
+	<mybatis-spring:scan
+		base-package="com.spring.myweb.reply.mapper" />
 
 
 
