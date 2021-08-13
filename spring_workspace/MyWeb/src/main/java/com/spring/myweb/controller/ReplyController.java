@@ -64,7 +64,7 @@ public class ReplyController {
 	public String replyUpdate(@RequestBody ReplyVO vo) {
 		if(service.pwCheck(vo)==1) {
 			service.update(vo);
-			return "";
+			return "modSuccess";
 		} else {
 			return "pwFail";
 		}

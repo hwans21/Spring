@@ -303,10 +303,13 @@
         		4. 업데이트가 진행된 다음에는 modal창의 모든 값을 ''로 처리해서 초기화 시키시고
         		수정된 댓글 내용이 반영될 수 있도록 댓글 목록을 다시 불러오세요
         	*/
+        	
         	const rno = $('#modalRno').val();
         	const reply = $('#modalReply').val();
         	const replyPw = $('#modalPw').val();
-        	
+        	if(reply === '' || replyPw === ''){
+        		alert('내용, 비밀번호를 확인하세요.')
+        	}
             $.ajax({
                 type: "POST",
                 url: "<c:url value='/reply/update' />",

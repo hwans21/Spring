@@ -50,9 +50,8 @@
   	 </select>
   	 
   	 <update id="update">
-  	 	UPDATE freereply SET 
-  	 		reply = #{reply}
-  	 		update_date = SYSDATE
+  	 	UPDATE freereply 
+  	 	SET reply = #{reply}, update_date = SYSDATE
   	 	WHERE rno = #{rno}
   	 </update>
   </mapper>
