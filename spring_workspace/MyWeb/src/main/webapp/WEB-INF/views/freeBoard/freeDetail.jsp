@@ -265,7 +265,6 @@
         $('#replyList').on('click', 'a', function(e){
         	e.preventDefault(); //태그의 고유기능을 중지
             // 1. a태그가 두 개(수정, 삭제)이므로 버튼부터 확인.
-            console.log($(this).closest('.reply-content').children('p').html());
             const rno = $(this).attr('href');
         	$('#modalRno').val(rno);
             
