@@ -1,6 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    <%@ include file="../include/header.jsp" %>
     <section>
         <div class="container">
             <div class="row">
@@ -8,13 +8,13 @@
                     <div class="titlebox">
                        	 회원가입
                     </div>
-                    <form action="">
+                    <form action="<c:url value='/user/join' />" method="post" id="joinForm">
                         <div class="form-group"><!--사용자클래스선언-->
                             <label for="id">아이디</label>
                             <div class="input-group"><!--input2탭의 input-addon을 가져온다 -->
                                 <input type="text" class="form-control" id="userId" placeholder="아이디를 (영문포함 4~12자 이상)">
                                 <div class="input-group-addon">
-                                    <button type="button" class="btn btn-primary">아이디중복체크</button>
+                                    <button type="button" class="btn btn-primary" id="idCheckBtn">아이디중복체크</button>
                                 </div>
                             </div>
                             <span id="msgId"></span><!--자바스크립트에서 추가-->
@@ -66,7 +66,7 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" id="addrZipNum" placeholder="우편번호" readonly>
                                 <div class="input-group-addon">
-                                    <button type="button" class="btn btn-primary">주소찾기</button>
+                                    <button type="button" class="btn btn-primary" onclick="goPopup()">주소찾기</button>
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
 
                         <!--button탭에 들어가서 버튼종류를 확인한다-->
                         <div class="form-group">
-                            <button type="button" class="btn btn-lg btn-success btn-block">회원가입</button>
+                            <button type="button" class="btn btn-lg btn-success btn-block" id="joinBtn">회원가입</button>
                         </div>
 
                         <div class="form-group">
@@ -90,8 +90,78 @@
             </div>
         </div>
     </section>
-
+	
+	<%@ include file="../include/footer.jsp" %>
+    
     <script>
+    	/*아이디 중복 체크*/
+    	$('#idCheckBtn').click(function(){
+    		if($('#userId').val() === ''){
+    			alert('아이디는 필수값입니다.');
+    			return;
+    		}
+    		// 아이디값을 받아와서 비동기 통신을 통해 서버와 통신하고
+    		// 중복되었다면 '중복된 아이디 입니다.',
+    		// 아니라면 '사용 가능한 아이디입니다.' 라고
+    		// 화면에 띄워주시면 되겠습니다.
+            //attr()를 이용해서 readonly 속성을 true를 주어서 작성하지 못하도록.
+    		const userId = $('#userId').val();
+    		
+    		$.ajax({
+    			type: "POST",
+    			url: "<c:url value='/user/idCheck' />",
+    			data : userId,
+    			headers: {
+    				"Content-Type":"application/json"
+    			},
+    			success:function(data){
+    				if(data === 'ok'){
+    					$('#userId').attr('readonly', true);
+    					$('#msgId').html('사용 가능한 아이디입니다.');
+    					
+    				} else {
+    					$('#msgId').html('중복된 아이디입니다.');
+    				}
+    			},
+    			error: function(){
+    				alert('서버에러입니다. 관리자에게 문의하세요');
+    			}
+    			
+    		});
+    	}); // 중복버튼 이벤트 처리 끝
+    	
+    	// 폼데이터 검증(회원가입 버튼을 눌렀을 시)
+		$('#joinBtn').click(function(){
+			if(!$('#userId').attr('readonly')){
+				alert('아이디 중복체크는 필수입니다.');
+				return;
+			} else if($('#userPw').val() === '' || $('#userPw').val() !== $('#pwConfirm').val()){
+				alert('비밀번호 규칙을 확인하세요.');
+				$('#userPw').focus();
+				return;
+			} else if($('#userName').val() === ''){
+				alert('이름은 필수입니다.');
+				$('#userName').focus();
+				return;
+			} else {
+				$('#joinForm').submit(); // 폼 데이터 제출
+			}
+		});
+    	
+    	/* 주소 팝업 */
+    	function goPopup(){
+    		//절대경로로 팝업창을 오픈
+    		const pop = window.open("${pageContext.request.contextPath}/resources/popup/jusoPopup.jsp", "pop", "width=570, height=420, scrollbars=yes, resizable=yes");
+    		
+    	}
+    	
+    	function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn,detBdNmList,bdNm,bdKdcd,siNm,sggNm,emdNm,liNm,rn,udrtYn,buldMnnm,buldSlno,mtYn,lnbrMnnm,lnbrSlno,emdNo){
+            //콜백으로 받아온 데이터를 가입폼에 입력.
+            document.getElementById("addrBasic").value = roadAddrPart1;
+            document.getElementById("addrDetail").value = addrDetail;
+            document.getElementById("addrZipNum").value = zipNo;
+         }
+    	
         /*아이디 형식 검사 스크립트*/
         var id = document.getElementById("userId");
         id.onkeyup = function() {
@@ -101,10 +171,10 @@
             if(regex.test(document.getElementById("userId").value )) {
                 document.getElementById("userId").style.borderColor = "green";
                 document.getElementById("msgId").innerHTML = "아이디중복체크는 필수 입니다";
-
+				
             } else {
                 document.getElementById("userId").style.borderColor = "red";
-                document.getElementById("msgId").innerHTML = "";
+                document.getElementById("msgId").innerHTML = "4글자 이상, 12글자 이하로 작성하세요";
             }
         }
         /*비밀번호 형식 검사 스크립트*/
@@ -116,7 +186,7 @@
                 document.getElementById("msgPw").innerHTML = "사용가능합니다";
             } else {
                 document.getElementById("userPw").style.borderColor = "red";
-                document.getElementById("msgPw").innerHTML = "";
+                document.getElementById("msgPw").innerHTML = "비밀번호는 8자이상 16자 이하로 작성하세요";
             }
         }
         /*비밀번호 확인검사*/
@@ -131,4 +201,5 @@
                 document.getElementById("msgPw-c").innerHTML = "비밀번호 확인란을 확인하세요";
             }
         }        
+        
     </script>
