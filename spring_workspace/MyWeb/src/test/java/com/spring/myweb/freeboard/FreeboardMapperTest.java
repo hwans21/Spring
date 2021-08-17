@@ -30,13 +30,13 @@ public class FreeboardMapperTest {
 	// 글 목록
 	@Test
 	public void getListTest(){
-		mapper.getList().forEach(vo -> System.out.println(vo));
+		mapper.getList(null).forEach(vo -> System.out.println(vo));
 	}
 	
 	// 총 게시물 수
 	@Test
 	public void getTotalTest() {
-		System.out.println(mapper.getTotal());
+		System.out.println(mapper.getTotal(null));
 	}
 		
 	// 상세보기
@@ -65,6 +65,6 @@ public class FreeboardMapperTest {
 		//300번 글 삭제 테스트
 		mapper.delete(300);
 		
-		mapper.getList().forEach(vo -> System.out.println(vo));
+		mapper.getList(null).forEach(vo -> System.out.println(vo));
 	}
 }
