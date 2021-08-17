@@ -69,4 +69,13 @@ public class ReplyController {
 			return "pwFail";
 		}
 	}
+	@PostMapping("/delete")
+	public String replyDelete(@RequestBody ReplyVO vo) {
+		if(service.pwCheck(vo)==1) {
+			service.delete(vo.getRno());
+			return "delSuccess";
+		} else {
+			return "pwFail";
+		}
+	}
 }

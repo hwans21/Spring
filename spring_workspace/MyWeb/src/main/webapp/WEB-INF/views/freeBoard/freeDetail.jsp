@@ -343,6 +343,57 @@
         	
         });
         
+        
+        $('#modalDelBtn').click(function(){
+        	/*
+        		1. 모달창에 rno값, replyPw값을 얻습니다.
+        		2. ajax함수를 이용해서 POST방식으로 reply/delete 요청
+        		필요한 값은 JSON형식으로 처리해서 요청
+        		3. 서버에서 요청을 받아서 비밀번호를 확인하고, 비밀번호가 맞으면
+        		삭제를 진행하시면 됩니다.
+        		4. 만약 비밀번호가 틀렸다면, 문자열을 반환해서
+        		'비밀번호가 틀렸습니다.' 경고창을 띄우세요.
+        	*/
+        	console.log('삭제버튼 클릭됨');
+        	const rno = $('#modalRno').val();
+        	const replyPw = $('#modalPw').val();
+        	if(replyPw === ''){
+        		alert('비밀번호를 확인하세요.')
+        		return;
+        	}
+        	
+
+       		$.ajax({
+                type: "POST",
+                url: "<c:url value='/reply/delete' />",
+                headers:{
+                    "Content-Type" : "application/json"
+                },
+                dataType:"text",
+                data: JSON.stringify({
+                    "rno" : rno,
+                    "replyPw" : replyPw
+                }),
+                success:function(data){
+					if(data === 'pwFail'){
+						alert('비밀번호가 틀렸습니다.');
+						$('#modalPw').val('');
+					} else {
+						alert('정상 삭제되었습니다.')
+        	            $('#modalPw').val('');
+                        $('#replyModal').modal('hide');
+                        getList(1, true);
+                    }
+                },
+                error: function(){
+                    alert('삭제을 실패했습니다. 관리자에게 문의하세요')
+                }
+
+            });
+        	
+        	
+        });
+        
         // 날짜 처리 함수
         function timeStamp(millis) {
             const date = new Date(); //현재 날짜
@@ -359,7 +410,7 @@
             } else { //1일 이상일경우
                 const today = new Date(millis);
                 const year = today.getFullYear(); //년
-                const month = today.getMonth(); //월
+                const month = today.getMonth() + 1; //월
                 const day = today.getDate(); //일
                 const hour = today.getHours(); // 시
                 const minute = today.getMinutes(); // 분
