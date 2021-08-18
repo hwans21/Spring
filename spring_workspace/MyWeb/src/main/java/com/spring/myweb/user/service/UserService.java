@@ -20,20 +20,19 @@ public class UserService implements IUserService {
 
 	@Override
 	public void join(UserVO vo) {
-		// TODO Auto-generated method stub
+		mapper.join(vo);
 
 	}
 
 	@Override
 	public UserVO login(String id, String pw) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.login(id, pw);
 	}
 
 	@Override
 	public UserVO getInfo(String id) {
 		// TODO Auto-generated method stub
-		return null;
+		return mapper.getInfo(id);
 	}
 
 }

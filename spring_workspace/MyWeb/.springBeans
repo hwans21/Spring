@@ -7,8 +7,11 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
+		<config>src/main/webapp/WEB-INF/config/Interceptor-config.xml</config>
 	</configs>
 	<autoconfigs>
+		<config>src/main/webapp/WEB-INF/config/servlet-config.xml</config>
+		<config>src/main/webapp/WEB-INF/config/db-config.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+<!-- namespaces 탭에서 mvc 기능 추가 -->
+<!-- web.xml에 초기 설정 파일로 이 파일을 추가 -->
+
+<!-- 인터셉터 클래스를 bean으로 등록 -->
+<bean id="userLoginSuccessHandler" class="com.spring.myweb.util.interceptor.UserLoginSuccessHandler" />
+<bean id="userAuthHandler" class="com.spring.myweb.util.interceptor.UserAuthHandler" />
+
+<mvc:interceptors>
+	<!-- 로그인 이후 실행되는 PostHandler -->
+	<mvc:interceptor>
+		<mvc:mapping path="/user/login"/>
+		<ref bean="userLoginSuccessHandler" />
+	</mvc:interceptor>
+	
+	<!-- 로그인 권한을 체크하는 핸들러 -->
+	<mvc:interceptor>
+		<mvc:mapping path="/freeBoard/freeRegist"/>
+		<mvc:mapping path="/user/userMyPage"/>
+		<ref bean="userAuthHandler" />
+	</mvc:interceptor>
+</mvc:interceptors>
+
+</beans>

@@ -5,12 +5,70 @@
   
 <mapper namespace="com.spring.myweb.user.mapper.IUserMapper">
 
+	<!-- 
+		VO클래스의 멤버변수가 컬랙션 타입일 경우에는 collection 태그를 이용합니다.
+		collection 타입의 변수에 값을 매길 때는 어떤 객체로 포장해서 넣을지를 새로운 
+		resultMap으로 선언해 주셔야 합니다.
+	 -->
+	<resultMap type="com.spring.myweb.command.UserVO" id="myPageInfo" >
+	
+		<id property="userId" column="USERID" />
+		<result property="userName" column="USERNAME"/>
+		<result property="userPhone1" column="USERPHONE1"/>
+		<result property="userPhone2" column="USERPHONE2"/>
+		<result property="userEmail1" column="USEREMAIL1"/>
+		<result property="userEmail2" column="USEREMAIL2"/>
+		<result property="addrBasic" column="ADDRBASIC"/>
+		<result property="addrDetail" column="ADDRDETAIL"/>
+		<result property="addrZipNum" column="ADDRZIPNUM"/>
+		<collection property="userBoardList" resultMap="list" />
+			
+	</resultMap>
+	
+	<!-- collection에 들어갈 객체가 어떤식으로 포장될지를 명시해주는 resultMap -->
+	<resultMap type="com.spring.myweb.command.FreeBoardVO" id="list">
+		<id property="bno" column="bno" />
+		<result property="title" column="title"/>
+		<result property="regdate" column="regdate"/>
+	</resultMap>
 	
 	<select id="idCheck" resultType="int">
 		SELECT COUNT(*) FROM users
 		WHERE userId = #{id }
 	</select>
 
+	<insert id="join">
+		INSERT INTO users
+		(userId, userPw, userName, userPhone1, userPhone2, userEmail1, userEmail2, addrBasic, addrDetail, addrZipNum)
+		VALUES (#{userId},#{userPw},#{userName},#{userPhone1},#{userPhone2},#{userEmail1},#{userEmail2},#{addrBasic},#{addrDetail},#{addrZipNum})
+	</insert>
+	
+	<select id="login" resultType="com.spring.myweb.command.UserVO">
+		SELECT * FROM users
+		WHERE userId = #{id}
+		AND userPw = #{pw}
+	</select>
 
+	<!-- 마이페이지 회원 정보 -->
+	<select id="getInfo" resultMap="myPageInfo">
+		SELECT userId,
+			   userName,
+			   userPhone1,
+			   userPhone2,
+			   userEmail1,
+			   userEmail2,
+			   addrBasic,
+			   addrDetail,
+			   addrZipNum,
+			   f.bno,
+			   f.title,
+			   f.regdate
+		FROM users u LEFT OUTER JOIN freeboard f
+		ON u.userId = f.writer
+		WHERE u.userId = #{userId}
+		ORDER BY f.bno DESC
+		 
+	</select>
+	
 
 </mapper>
