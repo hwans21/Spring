@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.spring.myweb.command.MultiUploadVO;
+
 @Controller
 @RequestMapping("/fileupload")
 public class UploadController {
@@ -120,5 +122,13 @@ public class UploadController {
 		
 		return "fileupload/upload_ok";
 	}
+	
+	@PostMapping("/upload_ok4")
+	public String upload4(MultiUploadVO vo) {
+		System.out.println(vo);
+		
+		return "fileupload/upload_ok";
+	}
+	
 	
 }

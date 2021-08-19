@@ -18,11 +18,20 @@
         파일선택 : <input type="file" multiple="multiple" name="files"> <br>
         <input type="submit" value="전송">        
     </form>
+    <hr>
     <form action="upload_ok3" method="POST" enctype="multipart/form-data">
         파일선택 : <input type="file" name="file"> <br>
         파일선택 : <input type="file" name="file"> <br>
         파일선택 : <input type="file" name="file"> <br>
         <input type="submit" value="전송">        
+    </form>
+
+    <hr>
+    <form action="upload_ok4" method="post" enctype="multipart/form-data">
+        파일선택 : <input type="file" name="list[0].file"> <br>
+        파일선택 : <input type="file" name="list[1].file"> <br>
+        파일선택 : <input type="file" name="list[2].file"> <br>
+        <input type="submit" value="전송">
     </form>
 </body>
 </html>
