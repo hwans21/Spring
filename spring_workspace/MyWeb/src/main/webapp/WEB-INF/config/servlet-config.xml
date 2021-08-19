@@ -24,6 +24,11 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+
+	<!-- 아노테이션으로 등록된 클래스 객체들을 탐색해 주는 설정 태그
+		base-package에다가는 탐색할 패키지 경로를 쓰시면
+		하위 패키지도 몽땅 검색해 줘요.
+	 -->
 	<context:component-scan base-package="com.spring.*" />
 	
 	<!-- 파일 업로드 -->
