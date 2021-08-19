@@ -11,6 +11,7 @@
 <!-- 인터셉터 클래스를 bean으로 등록 -->
 <bean id="userLoginSuccessHandler" class="com.spring.myweb.util.interceptor.UserLoginSuccessHandler" />
 <bean id="userAuthHandler" class="com.spring.myweb.util.interceptor.UserAuthHandler" />
+<bean id="boardAuthHandler" class="com.spring.myweb.util.interceptor.BoardAuthHandler" />
 
 <mvc:interceptors>
 	<!-- 로그인 이후 실행되는 PostHandler -->
@@ -24,6 +25,14 @@
 		<mvc:mapping path="/freeBoard/freeRegist"/>
 		<mvc:mapping path="/user/userMyPage"/>
 		<ref bean="userAuthHandler" />
+	</mvc:interceptor>
+	
+	<!-- 게시판 수정/삭제 권한을 체크하는 핸들러 -->
+	<mvc:interceptor>
+		<mvc:mapping path="/freeBoard/freeModify"/>
+		<mvc:mapping path="/freeBoard/freeUpdate"/>
+		<mvc:mapping path="/freeBoard/freeDelete"/>
+		<ref bean="boardAuthHandler" />
 	</mvc:interceptor>
 </mvc:interceptors>
 

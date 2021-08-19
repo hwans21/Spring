@@ -35,7 +35,7 @@
                     </div>
 
                     <button type="button" class="btn btn-primary"
-                        onclick="location.href='<c:url value="/freeBoard/freeModify?bno=${art.bno}" />'">변경</button>
+                        onclick="location.href='<c:url value="/freeBoard/freeModify?bno=${art.bno}&writer=${art.writer }" />'">변경</button>
                     <button type="button" class="btn btn-dark"
                         onclick="location.href='<c:url value="/freeBoard/freeList"/>'">목록 </button> </form> </div>
                         </div> </div> </section> <section style="margin-top: 80px;">

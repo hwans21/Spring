@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.resource.HttpResource;
 
 import com.spring.myweb.command.UserVO;
 import com.spring.myweb.user.service.IUserService;
@@ -93,6 +94,14 @@ public class UserController {
 		model.addAttribute("userInfo", userInfo);
 		
 		return "user/userMypage";
+	}
+	
+	@GetMapping("/userLogout")
+	public String userLogout(HttpSession session) {
+		if(session.getAttribute("login") != null) {
+			session.setAttribute("login", null);
+		}
+		return "redirect:/";
 	}
 	
 	@PostMapping("/userMyPage")
