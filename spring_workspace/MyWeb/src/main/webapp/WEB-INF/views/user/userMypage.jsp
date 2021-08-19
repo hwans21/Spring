@@ -49,11 +49,11 @@
                                             <input  name="userEmail1" id="userEmail1" class="form-control input-sm"
                                                 value="${userInfo.userEmail1 }">@
                                             <select name="userEmail2" id="userEmail2" class="form-control input-sm sel">
-                                                <option ${userInfo.userEmail2=='@naver.com' ? 'selected' :'' }>naver.com
+                                                <option ${userInfo.userEmail2=='@naver.com' ? 'selected' :'' } value="@naver.com">naver.com
                                                 </option>
-                                                <option ${userInfo.userEmail2=='@gmail.com' ? 'selected' :'' }>gmail.com
+                                                <option ${userInfo.userEmail2=='@gmail.com' ? 'selected' :'' } value="@gmail.com">gmail.com
                                                 </option>
-                                                <option ${userInfo.userEmail2=='@daum.net' ? 'selected' :'' }>daum.net
+                                                <option ${userInfo.userEmail2=='@daum.net' ? 'selected' :'' } value="@daum.net">daum.net
                                                 </option>
                                             </select>
                                         </td>
