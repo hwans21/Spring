@@ -13,5 +13,16 @@
         파일선택 : <input type="file" name="file"> <br>
         <input type="submit" value="전송">        
     </form>
+    <hr>
+    <form action="upload_ok2" method="POST" enctype="multipart/form-data">
+        파일선택 : <input type="file" multiple="multiple" name="files"> <br>
+        <input type="submit" value="전송">        
+    </form>
+    <form action="upload_ok3" method="POST" enctype="multipart/form-data">
+        파일선택 : <input type="file" name="file"> <br>
+        파일선택 : <input type="file" name="file"> <br>
+        파일선택 : <input type="file" name="file"> <br>
+        <input type="submit" value="전송">        
+    </form>
 </body>
 </html>

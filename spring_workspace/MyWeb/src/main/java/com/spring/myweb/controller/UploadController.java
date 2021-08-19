@@ -1,6 +1,7 @@
 package com.spring.myweb.controller;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 @RequestMapping("/fileupload")
@@ -44,10 +46,79 @@ public class UploadController {
 			System.out.println("업로드 중 문제 발생!: "+e.getMessage());
 		}
 		
+		return "fileupload/upload_ok";
+	}
+	
+	@PostMapping("/upload_ok2")
+	public String upload2(MultipartHttpServletRequest files) {
+		String uploadFolder = "C:\\test\\upload";
 		
-		
+		try {
+			List<MultipartFile> list = files.getFiles("files");
+//			for(int i=0;i<list.size();i++) {
+//				String fileRealname = list.get(i).getOriginalFilename();
+//				Long size = list.get(i).getSize(); //파일 사이즈
+//				
+//				System.out.println("파일명:"+fileRealname);
+//				System.out.println("사이즈:"+size);
+//				
+//				File saveFile = new File(uploadFolder + "\\" + fileRealname);
+//				list.get(i).transferTo(saveFile);
+//			}
+			for(MultipartFile m : list) {
+				String fileRealname = m.getOriginalFilename();
+				Long size = m.getSize(); //파일 사이즈
+				
+				System.out.println("파일명:"+fileRealname);
+				System.out.println("사이즈:"+size);
+				
+				File saveFile = new File(uploadFolder + "\\" + fileRealname);
+				m.transferTo(saveFile);
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("업로드 중 문제 발생!: "+e.getMessage());
+		}
 		
 		
 		return "fileupload/upload_ok";
 	}
+	
+	@PostMapping("/upload_ok3")
+	public String upload3(@RequestParam("file") List<MultipartFile> list) {
+		String uploadFolder = "C:\\test\\upload";
+		
+		try {
+//			for(int i=0;i<list.size();i++) {
+//				String fileRealname = list.get(i).getOriginalFilename();
+//				Long size = list.get(i).getSize(); //파일 사이즈
+//				
+//				System.out.println("파일명:"+fileRealname);
+//				System.out.println("사이즈:"+size);
+//				
+//				File saveFile = new File(uploadFolder + "\\" + fileRealname);
+//				list.get(i).transferTo(saveFile);
+//			}
+			for(MultipartFile m : list) {
+				String fileRealname = m.getOriginalFilename();
+				Long size = m.getSize(); //파일 사이즈
+				
+				System.out.println("파일명:"+fileRealname);
+				System.out.println("사이즈:"+size);
+				
+				File saveFile = new File(uploadFolder + "\\" + fileRealname);
+				m.transferTo(saveFile);
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("업로드 중 문제 발생!: "+e.getMessage());
+		}
+		
+		return "fileupload/upload_ok";
+	}
+	
 }
