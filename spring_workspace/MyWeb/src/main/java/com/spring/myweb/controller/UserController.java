@@ -48,7 +48,7 @@ public class UserController {
 	@PostMapping("/join")
 	public String join(UserVO vo, RedirectAttributes ra) {
 		service.join(vo);
-		ra.addAttribute("msg", "joinSuccess");
+		ra.addFlashAttribute("msg", "joinSuccess");
 		
 		return "redirect:/user/userLogin";
 	}
@@ -93,5 +93,14 @@ public class UserController {
 		model.addAttribute("userInfo", userInfo);
 		
 		return "user/userMypage";
+	}
+	
+	@PostMapping("/userMyPage")
+	public String userModify(UserVO vo, RedirectAttributes ra) {
+		System.out.println("회원정보 수정 요청");
+		System.out.println(vo);
+		service.modify(vo);
+		ra.addFlashAttribute("msg", "updateSuccess");		
+		return "redirect:/";
 	}
 }

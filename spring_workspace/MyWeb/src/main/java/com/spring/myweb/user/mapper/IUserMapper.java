@@ -17,4 +17,7 @@ public interface IUserMapper {
 	
 	//회원정보 얻어오기
 	UserVO getInfo(String id);
+	
+	//회원정보 수정하기
+	void modify(UserVO vo);
 }

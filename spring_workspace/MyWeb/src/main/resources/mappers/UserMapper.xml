@@ -70,5 +70,19 @@
 		 
 	</select>
 	
+	<update id="modify">
+		UPDATE users
+		SET 
+			userPw=#{userPw},
+		   	userPhone1=#{userPhone1},
+		   	userPhone2=#{userPhone2},
+		   	userEmail1=#{userEmail1},
+		   	userEmail2=#{userEmail2},
+		   	addrBasic=#{addrBasic},
+		   	addrDetail=#{addrDetail},
+		   	addrZipNum=#{addrZipNum}
+	   WHERE userId=#{userId}
+	</update>
+	
 
 </mapper>

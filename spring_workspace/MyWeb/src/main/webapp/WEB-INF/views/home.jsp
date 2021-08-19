@@ -136,3 +136,9 @@
         </div>
     </section>
    <%@ include file="include/footer.jsp" %>
+   <script>
+       const msg = '${msg}';
+       if(msg==='updateSuccess'){
+           alert('회원정보수정이 완료되었습니다.')
+       }
+   </script>

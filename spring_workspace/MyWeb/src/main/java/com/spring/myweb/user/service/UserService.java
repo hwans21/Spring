@@ -35,4 +35,10 @@ public class UserService implements IUserService {
 		return mapper.getInfo(id);
 	}
 
+	@Override
+	public void modify(UserVO vo) {
+		// TODO Auto-generated method stub
+		mapper.modify(vo);
+	}
+
 }
