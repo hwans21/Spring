@@ -474,6 +474,8 @@
 				e.preventDefault();
 				const bno = $(this).attr('href'); //글 번호 얻어오기
 				
+				
+				
 				$.getJSON(
 					"<c:url value='/snsBoard/getDetail' />" + '/' + bno,
 					function(result){
@@ -485,7 +487,7 @@
 						$('#snsContent').html(result.content); //내용처리
 						$('#snsModal').modal('show');//모달열기
 					}
-				);
+				); 
 
 			}); //end 상세보기 처리 함수
 			
@@ -499,6 +501,30 @@
 				e.preventDefault();
 				const bno = $(this).attr('href');
 				console.log(bno);
+				
+				$.ajax({
+					type : "GET",
+					url : '<c:url value="/snsBoard/delete" />'+'/'+bno,
+					headers:{
+						"Content-Type" : "application/json"
+					},
+					dataType:"text",
+					success: function(result){
+						console.log(result);
+						if(result === 'noAuth'){
+							alert('권한이 없습니다.');
+						} else if(result === 'Success'){
+							alert('삭제가 정상 처리되었습니다.');
+							getList(true);
+						} else {
+							alert('오류발생!');
+						}
+					},
+					error: function(){
+						alert()
+					}
+				});
+				/* 
 				$.getJSON(
 					'<c:url value="/snsBoard/delete" />'+'/'+bno,
 					function(result){
@@ -513,7 +539,7 @@
 						}
 					}
 					
-				);
+				); */
 			});//end 삭제 처리 함수
 
 		}); // end 자동 실행 함수
