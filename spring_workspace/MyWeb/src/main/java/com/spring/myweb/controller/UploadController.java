@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.myweb.command.MultiUploadVO;
-import com.spring.myweb.command.UploadVO;
+0import com.spring.myweb.command.UploadVO;
 
 @Controller
 @RequestMapping("/fileupload")
