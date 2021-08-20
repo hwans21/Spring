@@ -11,13 +11,20 @@
 		VALUES(snsboard_seq.NEXTVAL,#{writer},#{uploadpath},#{fileloca},#{filename},#{filerealname},#{content})
 	</insert>
 
+	
 	<select id="getList" resultType="com.spring.myweb.command.SnsBoardVO">
 		SELECT * FROM snsboard
 		ORDER BY bno DESC	
 	</select>
+	
 	<select id="getDetail" resultType="com.spring.myweb.command.SnsBoardVO">
 		SELECT * FROM snsboard
 		WHERE bno = #{bno}
 	</select>
 	
+	<delete id="delete">
+		DELETE FROM snsboard
+		WHERE bno = #{bno}
+		
+	</delete>
 </mapper>

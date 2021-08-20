@@ -485,7 +485,7 @@
 						$('#snsContent').html(result.content); //내용처리
 						$('#snsModal').modal('show');//모달열기
 					}
-				)
+				);
 
 			}); //end 상세보기 처리 함수
 			
@@ -495,7 +495,26 @@
 			// 비동기 방식으로 삭제를 진행해 주세요
 			// 서버쪽에서 권한을 확인해 주세요(작성자와 로그인 중인 사용자의 id를 비교해서)
 			// 일치하지않으면 문자열 "noAuth" 리턴, 성공하면 "Success"리턴
-			
+			$('#contentDiv').on('click','.link-inner a:last-child', function(e){
+				e.preventDefault();
+				const bno = $(this).attr('href');
+				console.log(bno);
+				$.getJSON(
+					'<c:url value="/snsBoard/delete" />'+'/'+bno,
+					function(result){
+						console.log(result);
+						if(result === 'noAuth'){
+							alert('권한이 없습니다.');
+						} else if(result === 'Success'){
+							alert('삭제가 정상 처리되었습니다.');
+							getList(true);
+						} else {
+							alert('오류발생!');
+						}
+					}
+					
+				);
+			});//end 삭제 처리 함수
 
 		}); // end 자동 실행 함수
 		//날짜 처리 함수

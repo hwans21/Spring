@@ -34,7 +34,7 @@ public class SnsBoardService implements ISnsBoardService {
 	@Override
 	public void delete(int bno) {
 		// TODO Auto-generated method stub
-
+		mapper.delete(bno);
 	}
 
 }

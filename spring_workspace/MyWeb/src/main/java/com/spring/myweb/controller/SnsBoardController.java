@@ -140,4 +140,24 @@ public class SnsBoardController {
 	public SnsBoardVO getDetail(@PathVariable int bno) {
 		return service.getDetail(bno);
 	}
+	
+	@GetMapping("/delete/{bno}")
+	@ResponseBody
+	public String delete(@PathVariable int bno, HttpSession session) {
+		SnsBoardVO vo = service.getDetail(bno);
+		
+		System.out.println(bno);
+		
+		if(session.getAttribute("login") == null ||
+				!((UserVO) session.getAttribute("login")).getUserId().equals(vo.getWriter())) {
+			return "noAuth";
+		} 
+		service.delete(bno);
+		
+		//파일 객체를 생성해서 지워지고 있는 게시물의 파일을 지목
+		File file = new File(vo.getUploadpath()+"\\"+vo.getFilename());
+		return file.delete()? "Success":"fail"; //파일삭제 메서드
+		
+		
+	}
 }
