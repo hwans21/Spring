@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.myweb.command.MultiUploadVO;
+import com.spring.myweb.command.UploadVO;
 
 @Controller
 @RequestMapping("/fileupload")
@@ -29,6 +30,11 @@ public class UploadController {
 			
 			System.out.println("파일명:"+fileRealname);
 			System.out.println("사이즈:"+size);
+			
+			//파일 업로드 시 파일명이 동일한 파일이 존재할 수도 있고,
+			//사용자가 업로드 하는 파일명이 한글인 경우도 있습니다.
+			//한글들 지원하지 않는 환경일 수도 있잖아요.(리눅스)
+			//고유한 랜덤 문자를 통해 DB와 서버에 저장할 파일명을 새로 만들어 줍니다.
 			
 			UUID uuid = UUID.randomUUID();
 			String[] uuids = uuid.toString().split("-");
@@ -126,6 +132,27 @@ public class UploadController {
 	@PostMapping("/upload_ok4")
 	public String upload4(MultiUploadVO vo) {
 		System.out.println(vo);
+		String uploadFolder = "C:\\test\\upload";
+		List<UploadVO> list = vo.getList();
+		try {
+			for(UploadVO up : list) {
+				System.out.println(up.getFile().getName());
+				System.out.println(up.getFile().getSize());
+				
+				String fileRealname = up.getFile().getOriginalFilename();
+				Long size = up.getFile().getSize(); //파일 사이즈
+				
+				System.out.println("파일명:"+fileRealname);
+				System.out.println("사이즈:"+size);
+				
+				File saveFile = new File(uploadFolder + "\\" + fileRealname);
+				up.getFile().transferTo(saveFile);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
 		
 		return "fileupload/upload_ok";
 	}

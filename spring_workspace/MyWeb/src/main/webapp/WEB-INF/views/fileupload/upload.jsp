@@ -28,8 +28,11 @@
 
     <hr>
     <form action="upload_ok4" method="post" enctype="multipart/form-data">
+        파일명 : <input type="text" name="list[0].name"> <br>
         파일선택 : <input type="file" name="list[0].file"> <br>
+        파일명 : <input type="text" name="list[1].name"> <br>
         파일선택 : <input type="file" name="list[1].file"> <br>
+        파일명 : <input type="text" name="list[2].name"> <br>
         파일선택 : <input type="file" name="list[2].file"> <br>
         <input type="submit" value="전송">
     </form>
