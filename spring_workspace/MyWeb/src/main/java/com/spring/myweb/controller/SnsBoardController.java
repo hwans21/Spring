@@ -1,15 +1,22 @@
 package com.spring.myweb.controller;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -88,5 +95,49 @@ public class SnsBoardController {
 			return "fail"; // 에러가 났을 시 실패 키워드를 반환
 		}
 		
+	}
+	
+	@GetMapping("/getList")
+	@ResponseBody
+	public List<SnsBoardVO> getList(){
+		return service.getList();
+	}
+	
+	//ResponseEntity: 응답으로 변환될 정보를 모두 담은 요소들을 객체로 만들어서 반환해줍니다.
+	
+	@GetMapping("/display")
+	public ResponseEntity<byte[]> getFile(@RequestParam("fileLoca") String fileLoca,
+										@RequestParam("fileName") String fileName){
+		System.out.println("fileName: "+fileName);
+		System.out.println("fileLoca: "+fileLoca);
+		File file = new File("C:\\Users\\hwans\\Desktop\\upload\\"+fileLoca+"\\"+fileName);
+		
+		System.out.println(file);
+		
+		ResponseEntity<byte[]> result = null;
+		try {
+			HttpHeaders headers = new HttpHeaders();
+			//probeContentType: 파라미터로 전달받은 파일의 타입을 문자열로 반환해 주는 메서드
+			//사용자에게 보여주고자 하는 데이터가 어떤 파일인지를 검사해서 응답상태 코드를 다르게 리턴할 수도 있습니다.
+			headers.add("Content-Type", Files.probeContentType(file.toPath()));
+			//ResponseEntity<>(바디에 담을내용, 헤더에 담을 내용, 상태메세지)
+			//FileCopyUtils: 파일 및 스트림 복사를 위한 간단한 유틸리티 메서드의 집합체
+			//file객체 안에 있는 내용을 복사해서 byte배열 형태로 바디에 담아서 전달.
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
+					
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	
+	//상세보기 처리
+	@GetMapping("/getDetail/{bno}")
+	@ResponseBody
+	public SnsBoardVO getDetail(@PathVariable int bno) {
+		return service.getDetail(bno);
 	}
 }

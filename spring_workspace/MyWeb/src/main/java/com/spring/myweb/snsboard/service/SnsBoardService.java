@@ -22,13 +22,13 @@ public class SnsBoardService implements ISnsBoardService {
 	@Override
 	public List<SnsBoardVO> getList() {
 		// TODO Auto-generated method stub
-		return null;
+		return mapper.getList();
 	}
 
 	@Override
 	public SnsBoardVO getDetail(int bno) {
 		// TODO Auto-generated method stub
-		return null;
+		return mapper.getDetail(bno);
 	}
 
 	@Override
