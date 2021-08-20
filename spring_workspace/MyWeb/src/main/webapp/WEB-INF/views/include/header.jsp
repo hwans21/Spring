@@ -39,11 +39,11 @@
                             <ul class="nav navbar-nav">
                                 <li class="active"><a href="<c:url value='/' />">Main</a></li>
                                 <li><a href="<c:url value='/freeBoard/freeList' />">자유게시판</a></li>
+								<li><a href="<c:url value='/snsBoard/snsList'/>">SNS</a></li>
                                 <!-- 
-				<li><a href="#">강의</a></li>
                                 <li><a href="#">Form</a></li>
                                 <li><a href="#">Board</a></li>
- 				-->
+ 								-->
 
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
@@ -53,7 +53,7 @@
                                     <ul class="dropdown-menu">
 	                                    <c:choose>
 	                                    	<%-- <c:if test="${sessionScope.login == null }"> --%>
-	                                    	<c:when test="${sessionScope.login == null }">
+	                                    	<c:when test="${login == null }">
 		                                        <li><a href="<c:url value='/user/userJoin' />"><span class="glyphicon glyphicon-user"></span>Join</a></li>
 		                                        <li><a href="<c:url value='/user/userLogin' />"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
 	                                    	</c:when>
@@ -83,3 +83,5 @@
             </div>
         </div>
     </header>
+	</body>
+</html>

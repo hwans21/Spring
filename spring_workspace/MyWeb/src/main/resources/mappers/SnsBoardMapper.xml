@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.spring.myweb.snsboard.mapper.ISnsBoardMapper">
+
+	<!-- 등록하기 -->
+	<insert id="insert">
+		INSERT INTO snsboard(bno,writer,uploadpath,fileloca,filename,filerealname,content)
+		VALUES(snsboard_seq.NEXTVAL,#{writer},#{uploadpath},#{fileloca},#{filename},#{filerealname},#{content})
+	</insert>
+
+</mapper>
