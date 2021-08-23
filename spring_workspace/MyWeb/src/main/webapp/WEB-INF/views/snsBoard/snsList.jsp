@@ -436,7 +436,7 @@
 							str += "</div>";
 							str += "<div class='title'>";
 							str += "<p>" + list[i].writer + "</p>";
-							str += "<small>" + timeStamp(list[i].regdate) + "</small>";
+							str += "<small>" + timeStamp(list[i].regdate) + "</small> &nbsp;&nbsp;";
 							//파일다운로드
 							str += "<a href='download?fileLoca=" + list[i].fileloca + "&fileName=" + list[i]
 								.filename + "'>이미지다운로드</a>";
@@ -468,6 +468,8 @@
 				); // end getJSON
 
 			} // end getList()함수
+			
+			
 			
 			//상세보기 처리(모달창 열어줄 겁니다.)
 			$('#contentDiv').on('click','.image-inner a',function(e){
@@ -503,11 +505,8 @@
 				console.log(bno);
 				
 				$.ajax({
-					type : "GET",
+					type : "POST",
 					url : '<c:url value="/snsBoard/delete" />'+'/'+bno,
-					headers:{
-						"Content-Type" : "application/json"
-					},
 					dataType:"text",
 					success: function(result){
 						console.log(result);
@@ -539,8 +538,10 @@
 						}
 					}
 					
-				); */
+				); >> 비동기 오류 */ 
 			});//end 삭제 처리 함수
+			
+			
 
 		}); // end 자동 실행 함수
 		//날짜 처리 함수

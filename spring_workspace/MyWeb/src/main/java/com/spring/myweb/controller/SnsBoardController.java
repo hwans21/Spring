@@ -1,6 +1,7 @@
 package com.spring.myweb.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -141,7 +143,7 @@ public class SnsBoardController {
 		return service.getDetail(bno);
 	}
 	
-	@GetMapping("/delete/{bno}")
+	@PostMapping("/delete/{bno}")
 	@ResponseBody
 	public String delete(@PathVariable int bno, HttpSession session) {
 		SnsBoardVO vo = service.getDetail(bno);
@@ -159,5 +161,45 @@ public class SnsBoardController {
 		return file.delete()? "Success":"fail"; //파일삭제 메서드
 		
 		
+	}
+	
+	//다운로드 비동기처리(화면에서 클릭시 a태그를 통해 download를 타도록 처리)
+	@GetMapping("/download")
+	@ResponseBody
+	public ResponseEntity<byte[]> download(@RequestParam("fileLoca") String fileLoca,
+										@RequestParam("fileName") String fileName,
+										HttpRequest request){
+		System.out.println("fileLoca: "+fileLoca);
+		System.out.println("fileName: "+fileName);
+		File file = new File("C:\\Users\\hwans\\Desktop\\upload\\"+fileLoca+"\\"+fileName);
+		
+		ResponseEntity<byte[]> result =  null;
+		
+		//응답하는 본분을 브라우저가 어떻게 표시해야할지 알려주는 해더 정보입니다.
+		//inline인 경우 웹페이지 화면에 표시되고, attachment인 경우 다운로드를 제공합니다.
+		
+		//request객체의 getHeader("User-Agent") -> 단어를 뽑아서 브라우저종류 확인
+		System.out.println(((String) request).getHeader("User-Agent"));
+		
+		//파일명한글처리(Chrome browser) 크롬
+        //header.add("Content-Disposition", "attachment; filename=" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1") );
+        //파일명한글처리(Edge) 엣지 
+        //header.add("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileName, "UTF-8"));
+        //파일명한글처리(Trident) IE
+        //Header.add("Content-Disposition", "attachment; 
+		
+		HttpHeaders header = new HttpHeaders();
+		header.add("Content-Disposition", "attachment; filename="+fileName);
+		
+		try {
+			
+			
+			result = new ResponseEntity<byte[]>(FileCopyUtils.copyToByteArray(file),header,HttpStatus.OK);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }
