@@ -590,6 +590,28 @@
 			readURL(this); //this는 #file자신 태그를 의미
 
 		});
+		
+		//무한스크롤 방식 (Jquery)
+		let page = 0;
+		//윈도우(device)의 높이와 현재 스크롤 위치값을 더한 뒤, 문서(컨텐츠) 높이와 비교해서 같다면 로직을 수행.
+		//문서높이 - 브라우저 창 높이 = 스크롤 창의 끝 높이와 같다면 -> 새로운 내용을 불러오기
+
+		$(window).scroll(function() {
+			if($(window).scrollTop() === $(document).height() - $(window).height()){
+				console.log(++page);
+				$('#contentDiv').append("<h1>Page: "+page+"</h1>");
+				$('#contentDiv').append("<br>무한<br>페이징<br>로드<br>중입니다~~~~~~~~~~<br>");
+				$('#contentDiv').append("<br>무한<br>페이징<br>로드<br>중입니다~~~~~~~~~~<br>");
+				$('#contentDiv').append("<br>무한<br>페이징<br>로드<br>중입니다~~~~~~~~~~<br>");
+				$('#contentDiv').append("<br>무한<br>페이징<br>로드<br>중입니다~~~~~~~~~~<br>");
+				//목록 불러오기 페이징을 완료를 하셨다면
+				//페이지값 하나 올리고, getList(false) 주셔서 누적해서 계속 열어주면 됩니다.
+				//게시글은 몇 개씩 불러 올지는 페이징 알고리즘에서 알아서 정해 주시면 됩니다.
+				
+				
+			}
+		});
+		
 	</script>
 
 
